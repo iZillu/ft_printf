@@ -13,7 +13,6 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
@@ -30,6 +29,13 @@ typedef	struct	s_type
 }				t_type;
 
 int			ft_printf(const char *format, ...);
-char		*ft_itoa_base(intmax_t n, int base, int lower);
+char		*itoa_base(intmax_t n, int base, int lower);
+void		ft_putchar(char c);
+char		*ft_itoa(int n);
+void		ft_putnbr(int n);
+size_t		ft_strlen(const char *s);
+void		ft_putstr(char const *s);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strdup(const char *s1);
 
 #endif

@@ -20,7 +20,7 @@ void	ft_putchar_uni(wchar_t c)
 	int		len;
 
 	size = 1;
-	len = ft_strlen(ft_itoa_base((unsigned long long)c, 2, 0));
+	len = ft_strlen(itoa_base((unsigned long long)c, 2, 0));
 	if (len <= 7)
 		ch[0] = c;
 	else if (len <= 11)
@@ -60,7 +60,7 @@ void	detect_sign(va_list arg, const char *format)
 		write(1, "%", 1);
 	else if (*format == 'p')
 		ft_putstr(ft_strjoin("0x",
-			(ft_itoa_base(va_arg(arg, unsigned long long), 16, 0))));
+			(itoa_base(va_arg(arg, unsigned long long), 16, 0))));
 	else if (*format == 'C')
 		ft_putchar_uni(va_arg(arg, wint_t));
 	else if (*format == 'c')
@@ -71,17 +71,17 @@ void	detect_sign(va_list arg, const char *format)
 	else if (*format == 'D')
 		ft_putnbr(va_arg(arg, long int));
 	else if (*format == 'o')
-		ft_putstr(ft_itoa_base(va_arg(arg, int), 8, 0));
+		ft_putstr(itoa_base(va_arg(arg, int), 8, 0));
 	else if (*format == 'O')
-		ft_putstr(ft_itoa_base(va_arg(arg, long int), 8, 0));
+		ft_putstr(itoa_base(va_arg(arg, long int), 8, 0));
 	else if (*format == 'u')
 		ft_putnbr(va_arg(arg, long int));
 	else if (*format == 'U')
 		ft_putnbr(va_arg(arg, unsigned long int));
 	else if (*format == 'x')
-		ft_putstr(ft_itoa_base(va_arg(arg, int), 16, 0));
+		ft_putstr(itoa_base(va_arg(arg, int), 16, 0));
 	else if (*format == 'X')
-		ft_putstr(ft_itoa_base(va_arg(arg, int), 16, 1));
+		ft_putstr(itoa_base(va_arg(arg, int), 16, 1));
 }
 
 int	ft_printf(const char *format, ...)

@@ -17,12 +17,14 @@ HEADER = ft_printf.h
 FLAGS = -Wall -Werror -Wextra
 
 SRC =	ft_printf.c \
-		ft_itoa_base.c \
+		itoa_base.c \
 		ft_putchar.c \
 		ft_putstr.c \
 		ft_strlen.c \
 		ft_putnbr.c \
-		ft_strjoin.c
+		ft_strjoin.c \
+		ft_itoa.c \
+		ft_strdup.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -32,16 +34,13 @@ all: $(NAME)
 	gcc $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@make -C libft/
 	gcc -c $(SRC)
 	ar -rc $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
-	make -C libft clean
-
+	
 fclean: clean
-	make -C libft fclean
 	rm -f $(NAME)
 
 re: fclean all
