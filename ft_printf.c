@@ -51,6 +51,7 @@ void	detect_sign(va_list arg, const char *format)
 {
 	t_type	type;
 
+	
 	if (*format == 's')
 		ft_putstr(va_arg(arg, char *));
 	else if (*format == 'i' || *format == 'd')
