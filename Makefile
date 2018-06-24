@@ -12,28 +12,48 @@
 
 NAME = libftprintf.a
 
-HEADER = ft_printf.h
+NOC = \x1b[0m
+OKC = \x1b[32m
+ERC = \x1b[31m
+WAC = \x1b[33m
 
-FLAGS = -Wall -Werror -Wextra
+CFLAGS += -Wall -Wextra -Werror
 
-SRC = ft_printf.c
+CFLAGS += -I includes/
 
-OBJ = $(SRC:.c=.o)
+FILES = ft_printf.c \
+		ft_itoa_base.c
+
+LIBFILES =	ft_putchar.c \
+			ft_putstr.c \
+			ft_putnbr.c \
+			ft_strlen.c
+
+LIBSRCS	= $(addprefix libft/, $(LIBFILES))
+
+OBJ = $(PRINTFSRCS:.c=.o)
+
+LIBOBJ = $(LIBSRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	gcc -c $(SRC) -I libft
-	ar -rc $(NAME) $(OBJ)
+$(OBJ): %.o: %.c
+	@gcc -c $(CFLAGS) $< -o $@
+	@echo "$(WAC)PRINTF:\tObject was created$(NOC)"
 
-%.o: %.c
-	gcc $(FLAGS) -c $< -o $@ -I libft
+$(LIBOBJ): %.o: %.c
+	@gcc -c $(CFLAGS) $< -o $@
+
+$(NAME): $(LIBOBJ) $(OBJ)
+	@ar rcs $(NAME) $(OBJ) $(LIBOBJ)
+	@echo "$(OKC)PRINTF:\tPrint it, Baby$(NOC)"
 
 clean:
-	rm -f $(OBJ)
-	make -C libft clean
+	@rm -f $(OBJ) $(LIBOBJ)
+	@echo "$(ERC)PRINTF:\tObjects were deleted$(NOC)"
+
 fclean: clean
-	rm -f $(NAME)
-	make -C libft fclean
+	@rm -f $(NAME)
+	@echo "$(ERC)PRINTF:\tFillit was deleted$(NOC)"
 
 re: fclean all

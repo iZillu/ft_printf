@@ -29,7 +29,7 @@ typedef	struct	s_type
 	wchar_t			*S;
 }				t_type;
 
-int		ft_printf(const char * restrict format, ...);
+int		ft_printf(const char *format, ...);
 char		*ft_itoa_base(intmax_t n, int base, int lower);
 
 #endif

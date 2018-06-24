@@ -6,11 +6,16 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/03 02:42:25 by hmuravch          #+#    #+#              #
-#    Updated: 2018/05/24 18:08:42 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/06/24 17:01:15 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =	libft.a
+
+NOC=\x1b[0m
+OKC=\x1b[32m
+ERC=\x1b[31m
+WAC=\x1b[33m
 
 SRC =	./ft_atoi.c	./ft_isdigit.c	./ft_strcat.c	./ft_strdup.c	./ft_strncpy.c \
 			./ft_isalnum.c	./ft_isprint.c	./ft_strchr.c	./ft_strlen.c	./ft_strnstr.c \
@@ -41,19 +46,19 @@ OBJ =	ft_atoi.o	ft_isdigit.o	ft_strcat.o	ft_strdup.o	ft_strncpy.o \
 			ft_lstdelone.o ft_lstadd.o	ft_lstiter.o	ft_lstmap.o	ft_lstdel.o	ft_fill_word.o \
 			ft_num_of_words.o	ft_range.o	ft_swap.o	ft_sqrt.o	ft_realloc.o
 
-INCLUDE    =    ./includes
-
 all: $(NAME)
 
 $(NAME):
-	gcc -c $(SRC) -Wall -Wextra -Werror -I $(INCLUDE)
-	ar rc    $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@gcc -c $(SRC) -Wall -Wextra -Werror
+	@ar rc    $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "$(OKC)LIBFT: Libft is ready$(NOC)"
 
 clean:
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
+	@echo "$(ERC)LIBFT: Libft was deleted$(NOC)"
 
 re:	fclean all

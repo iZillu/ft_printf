@@ -44,7 +44,7 @@ void	ft_putchar_uni(wchar_t c)
 		ch[2] =	(63 & (c >> 6)) | 128;
 		ch[3] = (63 & c) | 128;	
 	}
-	write(1, &ch, 4);
+	write(1, &ch, size);
 }
 
 void	detect_sign(va_list arg, const char *format)
@@ -81,10 +81,9 @@ void	detect_sign(va_list arg, const char *format)
 		ft_putstr(ft_itoa_base(va_arg(arg, int), 16, 0));
 	else if (*format == 'X')
 		ft_putstr(ft_itoa_base(va_arg(arg, int), 16, 1));
-
 }
 
-int	ft_printf(const char * restrict format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	int		i;
