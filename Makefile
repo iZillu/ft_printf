@@ -23,7 +23,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc -c $(SRC) -l ft -I libft -L libft 
+	gcc -c $(SRC) -I libft
 	ar -rc $(NAME) $(OBJ)
 
 %.o: %.c

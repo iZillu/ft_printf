@@ -1,10 +1,16 @@
 #include <stdio.h>
+#include "ft_printf.h"
+#include <wchar.h>
 
-int	ft_printf(const char * restrict format, ...);
+#include <locale.h>
 
 int	main()
 {
-	ft_printf("Hello world! %i%s%% easy\n", 15, "");
-	   printf("Hello world! %i%s%% easy\n", 15, "");
+	setlocale(LC_ALL, "");
+	char	*str;
+
+	str = "123";
+	ft_printf("Hello world! %C %S %s %D %o %u %X easy\n", L'П', L"😎😎😎😎", str, 2147483647, 164, 12, 57);
+	printf("Hello world! %C %S %s %D %o %u %X easy\n", L'П', L"😎😎😎😎", str, 2147483647, 164, 12, 57);
 	return (0);
 }
