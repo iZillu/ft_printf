@@ -61,12 +61,20 @@ void	print_i_or_d(va_list arg, int *sign)
 	ft_putnbr(i);
 }
 
+void	print_s(va_list arg)
+{
+	if (va_arg(arg, char *))
+		ft_putstr(va_arg(arg, char *));
+	else
+		ft_putstr("(null)");
+}
+
 void	detect_sign(va_list arg, const char *format)
 {
 	t_type	type;
 	
 	if (*format == 's')
-		ft_putstr(va_arg(arg, char *));
+		print_s(arg);
 	else if (*format == '%')
 		write(1, "%", 1);
 	else if (*format == 'p')
