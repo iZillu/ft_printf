@@ -32,7 +32,7 @@ int			ft_printf(const char *format, ...);
 char		*itoa_base(intmax_t n, int base, int lower);
 void		ft_putchar(char c);
 char		*ft_itoa(int n);
-void		ft_putnbr(int n);
+void		ft_putnbr(intmax_t n);
 size_t		ft_strlen(const char *s);
 void		ft_putstr(char const *s);
 char		*ft_strjoin(char const *s1, char const *s2);
