@@ -45,7 +45,7 @@ char		*itoa_base(intmax_t n, int base, int lower)
 	{
 		if (n % base <= 9)
 			str[i] = n % base + '0';
-		else if (lower)
+		else if (lower == 0)
 			str[i] = n % base + 87;
 		else
 			str[i] = n % base + 55;
