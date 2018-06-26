@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static int	ft_count_digits_base(unsigned int n, int base)
+static int	ft_count_digits_base(unsigned intmax_t n, int base)
 {
 	int		qnt;
 
@@ -27,7 +27,7 @@ static int	ft_count_digits_base(unsigned int n, int base)
 	return (qnt);
 }
 
-char		*itoa_base(unsigned int n, int base, int upper)
+char		*itoa_base(unsigned intmax_t n, int base, int upper)
 {
 	char	*str;
 	int		i;

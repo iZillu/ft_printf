@@ -29,9 +29,9 @@ typedef	struct	s_type
 }				t_type;
 
 int			ft_printf(const char *format, ...);
-char		*itoa_base(unsigned int n, int base, int upper);
+char		*itoa_base(unsigned intmax_t n, int base, int upper);
 void		ft_putchar(char c);
-char		*ft_itoa(int n);
+char		*ft_itoa(unsigned intmax_t n);
 void		ft_putnbr(intmax_t n);
 size_t		ft_strlen(const char *s);
 void		ft_putstr(char const *s);
