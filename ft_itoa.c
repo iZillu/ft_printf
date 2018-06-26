@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static char	*kostil(int len, char *str, int minus, unsigned intmax_t n)
+static char	*kostil(int len, char *str, int minus, intmax_t n)
 {
 	int		i;
 	long	x;
@@ -41,7 +41,7 @@ static char	*kostil(int len, char *str, int minus, unsigned intmax_t n)
 	return (str);
 }
 
-char		*ft_itoa(unsigned intmax_t n)
+char		*ft_itoa(intmax_t n)
 {
 	int		len;
 	int		minus;
