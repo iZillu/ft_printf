@@ -71,7 +71,7 @@ void	detect_sign(va_list arg, const char *format)
 		write(1, "%", 1);
 	else if (*format == 'p')
 		ft_putstr(ft_strjoin("0x",
-			(itoa_base(va_arg(arg, unsigned long long), 16, 1))));
+			(itoa_base(va_arg(arg, unsigned long long), 16, 0))));
 	else if (*format == 'C')
 		ft_putchar_uni(va_arg(arg, wint_t));
 	else if (*format == 'c')

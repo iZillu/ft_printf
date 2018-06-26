@@ -27,7 +27,7 @@ static int	ft_count_digits_base(unsigned int n, int base)
 	return (qnt);
 }
 
-char		*itoa_base(unsigned int n, int base, int lower)
+char		*itoa_base(unsigned int n, int base, int upper)
 {
 	char	*str;
 	int		i;
@@ -45,7 +45,7 @@ char		*itoa_base(unsigned int n, int base, int lower)
 	{
 		if (n % base <= 9)
 			str[i] = n % base + '0';
-		else if (lower == 0)
+		else if (upper == 0)
 			str[i] = n % base + 87;
 		else
 			str[i] = n % base + 55;

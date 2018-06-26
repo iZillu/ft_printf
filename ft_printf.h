@@ -29,7 +29,7 @@ typedef	struct	s_type
 }				t_type;
 
 int			ft_printf(const char *format, ...);
-char		*itoa_base(unsigned int n, int base, int lower);
+char		*itoa_base(unsigned int n, int base, int upper);
 void		ft_putchar(char c);
 char		*ft_itoa(int n);
 void		ft_putnbr(intmax_t n);
