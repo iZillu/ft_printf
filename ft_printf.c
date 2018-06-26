@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-void	ft_putchar_uni(wchar_t c)
+int		ft_putchar_uni(wchar_t c)
 {
 	char 	ch[4];
 	int		size;
@@ -45,17 +45,24 @@ void	ft_putchar_uni(wchar_t c)
 		ch[3] = (63 & c) | 128;	
 	}
 	write(1, &ch, size);
+	return (size);
+}
+
+void	print_i_or_d(va_list arg, int *sign)
+{
+	if (*sign == 1)
+		ft_putchar('+');
+	if (*sign == 2)
+		ft_putchar(' ');
+	ft_putnbr(va_arg(arg, int));
 }
 
 void	detect_sign(va_list arg, const char *format)
 {
 	t_type	type;
-
 	
 	if (*format == 's')
 		ft_putstr(va_arg(arg, char *));
-	else if (*format == 'i' || *format == 'd')
-		ft_putnbr(va_arg(arg, int));
 	else if (*format == '%')
 		write(1, "%", 1);
 	else if (*format == 'p')
@@ -84,11 +91,27 @@ void	detect_sign(va_list arg, const char *format)
 		ft_putstr(itoa_base(va_arg(arg, int), 16, 1));
 }
 
-int	ft_printf(const char *format, ...)
+int		missing_sign(const char *format, int *sign, int i)
+{
+	while (format[i] == '+' || format[i] == ' ')
+	{
+		if (format[i] == '+')
+			*sign = 1;
+		if (format[i] == ' ')
+			if (*sign != 1)
+				*sign = 2;
+		i++;
+	}
+	return (i);
+}
+
+int		ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	int		i;
+	int		sign;
 
+	sign = 0;
 	va_start(arg, format);
 	i = -1;
 	while (format[++i])
@@ -96,6 +119,9 @@ int	ft_printf(const char *format, ...)
 		while(format[i] == '%')
 		{
 			i++;
+			i = missing_sign(format, &sign, i);
+			if (format[i] == 'i' || format[i] == 'd')
+				print_i_or_d(arg, &sign);
 			detect_sign(arg, &format[i++]);
 			va_end (arg);
 		}

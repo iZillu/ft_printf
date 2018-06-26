@@ -10,7 +10,7 @@ int	main()
 	char	*str;
 
 	str = "123";
-	ft_printf("Hello world! %C %S %s %D %o %u %X easy\n", L'П', L"😎😎😎😎", str, 2147483647, 164, 12, 57);
-	printf("Hello world! %C %S %s %D %o %u %X easy\n", L'П', L"😎😎😎😎", str, 2147483647, 164, 12, 57);
+	ft_printf("oh %  +    i %C %S %s easy\n", 15 + 5, L'П', L"😎😎😎😎", str);
+	printf("oh % +   i %C %S %s easy\n", 15 + 5, L'П', L"😎😎😎😎", str);
 	return (0);
 }
