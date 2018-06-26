@@ -63,8 +63,11 @@ void	print_i_or_d(va_list arg, int *sign)
 
 void	print_s(va_list arg)
 {
-	if (va_arg(arg, char *))
-		ft_putstr(va_arg(arg, char *));
+	char *str;
+
+	str = va_arg(arg, char *);
+	if (str)
+		ft_putstr(str);
 	else
 		ft_putstr("(null)");
 }
