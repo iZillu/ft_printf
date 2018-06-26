@@ -50,11 +50,14 @@ int		ft_putchar_uni(wchar_t c)
 
 void	print_i_or_d(va_list arg, int *sign)
 {
-	if (*sign == 1)
+	int	i;
+
+	i = va_arg(arg, int);
+	if (*sign == 1 && i > 0)
 		ft_putchar('+');
 	if (*sign == 2)
 		ft_putchar(' ');
-	ft_putnbr(va_arg(arg, int));
+	ft_putnbr(i);
 }
 
 void	detect_sign(va_list arg, const char *format)
