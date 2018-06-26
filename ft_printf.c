@@ -93,9 +93,9 @@ void	detect_sign(va_list arg, const char *format)
 	else if (*format == 'D')
 		ft_putnbr(va_arg(arg, long int));
 	else if (*format == 'o')
-		ft_putstr(itoa_base(va_arg(arg, int), 8, 0));
+		ft_putstr(itoa_base(va_arg(arg, unsigned int), 8, 0));
 	else if (*format == 'O')
-		ft_putstr(itoa_base(va_arg(arg, long int), 8, 0));
+		ft_putstr(itoa_base(va_arg(arg, unsigned long int), 8, 0));
 	else if (*format == 'u')
 		ft_putnbr(va_arg(arg, long int));
 	else if (*format == 'U')

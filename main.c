@@ -10,7 +10,7 @@ int	main()
 	char	*str;
 
 	str = NULL;
-	ft_printf("oh it's %s %s %s easy\n", NULL, str, "alk;hsdk lhuli1u2je kl;jasdlkj al;j");
-       printf("oh it's %s %s %s easy\n", NULL, str, "alk;hsdk lhuli1u2je kl;jasdlkj al;j");
+	ft_printf("oh it's %o easy\n", -11);
+       printf("oh it's %o easy\n", -11);
 	return (0);
 }
