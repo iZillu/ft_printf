@@ -12,19 +12,19 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr(int n)
+void	ft_putnbr(intmax_t n)
 {
-	int				num;
-	int				i;
-	unsigned int	r;
+	intmax_t		num;
+	intmax_t		i;
+	intmax_t		r;
 
 	num = 1;
-	r = (unsigned int)n;
+	r = n;
 	i = 1;
 	if (n < 0)
 	{
 		ft_putchar('-');
-		r = (unsigned int)(n * -1);
+		r = n * -1;
 	}
 	while ((r / i) > 9)
 		i *= 10;
