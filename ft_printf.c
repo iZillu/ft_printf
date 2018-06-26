@@ -90,7 +90,7 @@ void	detect_sign(va_list arg, const char *format)
 	else if (*format == 'U')
 		ft_putnbr(va_arg(arg, unsigned long int));
 	else if (*format == 'x')
-		ft_putstr(itoa_base(va_arg(arg, int), 16, 0));
+		ft_putstr(itoa_base(va_arg(arg,long long int), 16, 0));
 	else if (*format == 'X')
 		ft_putstr(itoa_base(va_arg(arg, int), 16, 1));
 }
