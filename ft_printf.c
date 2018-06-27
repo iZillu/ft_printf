@@ -65,8 +65,7 @@ int	missing_sign(const char *format, int *sign, int *i)
 		if (format[*i] == ' ')
 			if (*sign != 1)
 				*sign = 2;
-
-		i++;
+		*i += 1;
 	}
 	if (*sign == 2)
 		len++;

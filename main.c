@@ -10,7 +10,7 @@ int	main()
 	char	*str;
 
 	str = "123456789";
-	ft_printf("LEN IS %i\n", ft_printf("str is %u\n", 148956));
-       printf("LEN IS %i\n", printf("str is %u\n", 148956));
+	ft_printf("LEN IS %i\n", ft_printf("str is %      d\n", 42));
+       printf("LEN IS %i\n",    printf("str is %      d\n", 42));
 	return (0);
 }
