@@ -21,21 +21,53 @@
 
 # define PROTECT(x) if (!x) return (-1)
 
-typedef	struct	s_type
+typedef	struct			s_type
 {
-	int				x;
-	char			*str;
-	wchar_t			*S;
-}				t_type;
+	char				*s;
+	wchar_t				*S;
+	unsigned long long 	p;
+	wint_t				C;
+	char 				c;
+	long int 			D;
+	unsigned int 		o;
+	unsigned long int 	O;
+	long int 			u;
+	unsigned long int 	U;
+	long long int 		x;
+	long long int 		X;
+	int 				d;
+}						t_type;
 
-int			ft_printf(const char *format, ...);
-char		*itoa_base(uintmax_t n, int base, int upper);
-void		ft_putchar(char c);
-char		*ft_itoa(intmax_t n);
-void		ft_putnbr(intmax_t n);
-size_t		ft_strlen(const char *s);
-void		ft_putstr(char const *s);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_strdup(const char *s1);
+typedef	struct			s_sym
+{
+	int 				i;
+	int 				sign;
+	size_t				bits;
+	int 				len;
+}						t_sym;
+
+int		ft_printf(const char *format, ...);
+char	*itoa_base(uintmax_t n, int base, int upper);
+void	ft_putchar(char c);
+char	*ft_itoa(intmax_t n);
+size_t	ft_putnbr(intmax_t n);
+size_t	ft_strlen(const char *s);
+void	ft_putstr(char const *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s1);
+size_t	print_s(va_list arg, char *s);
+size_t	print_i_or_d(va_list arg, int *sign, int *d);
+size_t	print_p(va_list arg, unsigned long long *p);
+size_t	print_C(va_list arg, wint_t *C);
+size_t	ft_putchar_unicod(wchar_t c);
+size_t	print_c(va_list arg, char *c);
+size_t	print_S(va_list arg, wchar_t *S);
+size_t	print_D(va_list arg, long int *D);
+size_t	print_o(va_list arg, unsigned int *o);
+size_t	print_O(va_list arg, unsigned long int *O);
+size_t	print_u(va_list arg, long int *u);
+size_t	print_U(va_list arg, unsigned long int *U);
+size_t	print_x(va_list arg, long long int *x);
+size_t	print_X(va_list arg, long long int *X);
 
 #endif
