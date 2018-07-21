@@ -15,12 +15,18 @@
 
 size_t	print_i_or_d(va_list arg, int *sign, int *d)
 {
+    int check;
+
+    check = 0;
 	*d = va_arg(arg, int);
-	if (*sign == 1 && d > 0)
-		ft_putchar('+');
+	if (*sign == 1 && *d > 0)
+    {
+        ft_putchar('+');
+        check++;
+    }
 	if (*sign == 2)
 		ft_putchar(' ');
-	return (ft_putnbr(*d));
+	return (ft_putnbr(*d) + check);
 }
 
 size_t	print_s(va_list arg, char *s)

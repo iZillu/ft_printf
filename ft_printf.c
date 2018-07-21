@@ -6,7 +6,7 @@
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 05:23:00 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/06/27 01:57:18 by hmuravch         ###   ########.fr       */
+/*   Updated: 2018/07/20 18:38:03 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,16 @@ int		ft_printf(const char *format, ...)
 		while(format[sym.i] == '%')
 		{
 			sym.i++;
-			sym.len++;
 			if (missing_sign(format, &sym.sign, &sym.i))
 				sym.len++;
-			if (sym.bits += detect_sign(arg, &format[sym.i++], &sym.sign))
-				sym.len++;
+            sym.bits += detect_sign(arg, &format[sym.i++], &sym.sign);
 			va_end (arg);
 		}
 		if (format[sym.i] == '\0')
 			break ;
+		sym.bits++;
 		write(1, &format[sym.i], 1);
 	}
-	sym.i = sym.i + sym.bits - sym.len;
+	sym.i = sym.bits + sym.len;
 	return (sym.i);
 }
