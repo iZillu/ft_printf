@@ -13,19 +13,24 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-size_t	print_i_or_d(va_list arg, int *sign, int *d)
+size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 {
     int check;
 
     check = 0;
 	*d = va_arg(arg, int);
-	if (*sign == 1 && *d > 0)
+	if (sym->sign == 1 && *d > 0)
     {
         ft_putchar('+');
         check++;
     }
-	if (*sign == 2)
+	if (sym->sign == 2 && *d > 0)
+	{
 		ft_putchar(' ');
+		check++;
+	}
+	if (sym->sign == 2 && *d < 0)
+		check--;
 	return (ft_putnbr(*d) + check);
 }
 

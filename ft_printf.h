@@ -44,6 +44,10 @@ typedef	struct			s_sym
 	int 				sign;
 	size_t				bits;
 	int 				len;
+	int 				sharp;
+	int 				minus;
+	int 				zero;
+	int 				precision;
 }						t_sym;
 
 int		ft_printf(const char *format, ...);
@@ -56,18 +60,19 @@ void	ft_putstr(char const *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
 size_t	print_s(va_list arg, char *s);
-size_t	print_i_or_d(va_list arg, int *sign, int *d);
+size_t	print_i_or_d(va_list arg, t_sym *sym, int *d);
 size_t	print_p(va_list arg, unsigned long long *p);
 size_t	print_C(va_list arg, wint_t *C);
 size_t	ft_putchar_unicod(wchar_t c);
 size_t	print_c(va_list arg, char *c);
 size_t	print_S(va_list arg, wchar_t *S);
 size_t	print_D(va_list arg, long int *D);
-size_t	print_o(va_list arg, unsigned int *o);
-size_t	print_O(va_list arg, unsigned long int *O);
+size_t	print_o(va_list arg, unsigned int *o, t_sym *sym);
+size_t	print_O(va_list arg, unsigned long int *O, t_sym *sym);
 size_t	print_u(va_list arg, long int *u);
 size_t	print_U(va_list arg, unsigned long int *U);
-size_t	print_x(va_list arg, long long int *x);
-size_t	print_X(va_list arg, long long int *X);
+size_t	print_x(va_list arg, long long int *x, t_sym *sym);
+size_t	print_X(va_list arg, long long int *X, t_sym *sym);
+size_t	print_percent();
 
 #endif

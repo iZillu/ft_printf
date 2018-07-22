@@ -6,70 +6,72 @@
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 05:23:00 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/07/20 18:38:03 by hmuravch         ###   ########.fr       */
+/*   Updated: 2018/07/22 17:09:12 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-size_t		detect_sign(va_list arg, const char *format, int *sign)
+void		detect_sign(va_list arg, const char *format, t_sym *sym)
 {
-	t_sym	sym;
 	t_type	type;
 
-	sym.bits = 0;
 	if (*format == 's')
-		sym.bits = print_s(arg, type.s);
+		sym->bits += print_s(arg, type.s);
 	else if (*format == 'i' || *format == 'd')
-		sym.bits = print_i_or_d(arg, sign, &type.d);
+		sym->bits += print_i_or_d(arg, sym, &type.d);
 	else if (*format == '%')
-	{
-		sym.bits = 1;
-		write(1, "%", 1);
-	}
+		sym->bits += print_percent();
 	else if (*format == 'p')
-		sym.bits = print_p(arg, &type.p);
+		sym->bits += print_p(arg, &type.p);
 	else if (*format == 'C')
-		sym.bits = print_C(arg, &type.C);
+		sym->bits += print_C(arg, &type.C);
 	else if (*format == 'c')
-		sym.bits = print_c(arg, &type.c);
+		sym->bits += print_c(arg, &type.c);
 	else if (*format == 'S')
-		sym.bits = print_S(arg, type.S);
+		sym->bits += print_S(arg, type.S);
 	else if (*format == 'D')
-		sym.bits = print_D(arg, &type.D);
+		sym->bits += print_D(arg, &type.D);
 	else if (*format == 'o')
-		sym.bits = print_o(arg, &type.o);
+		sym->bits += print_o(arg, &type.o, sym);
 	else if (*format == 'O')
-		sym.bits = print_O(arg, &type.O);
+		sym->bits += print_O(arg, &type.O, sym);
 	else if (*format == 'u')
-		sym.bits = print_u(arg, &type.u);
+		sym->bits += print_u(arg, &type.u);
 	else if (*format == 'U')
-		sym.bits = print_U(arg, &type.U);
+		sym->bits += print_U(arg, &type.U);
 	else if (*format == 'x')
-		sym.bits = print_x(arg, &type.x);
+		sym->bits += print_x(arg, &type.x, sym);
 	else if (*format == 'X')
-		sym.bits = print_X(arg, &type.X);
-	return (sym.bits);
+		sym->bits += print_X(arg, &type.X, sym);
 }
 
-int	missing_sign(const char *format, int *sign, int *i)
-{
-	int len;
+int	missing_flags(const char *format, t_sym *sym)
+{	
 
-	len = 0;
-	while (format[*i] == '+' || format[*i] == ' ')
+	while (format[sym->i] == '+' || format[sym->i] == ' ' || format[sym->i] == '-'
+		|| format[sym->i] == '#')
 	{
-		if (format[*i] == '+')
-			*sign = 1;
-		if (format[*i] == ' ')
-			if (*sign != 1)
-				*sign = 2;
-		*i += 1;
+		if (format[sym->i] == '+')
+			sym->sign = 1;
+		if (format[sym->i] == ' ')
+			if (sym->sign != 1)
+				sym->sign = 2;
+		if (format[sym->i] == '#')
+			sym->sharp = 1;
+		if (format[sym->i] == '-')
+			sym->minus = 1;
+		if (format[sym->i] == '0') // d, i, o, u, x, X
+			sym->zero = 1;
+		sym->i += 1;
 	}
-	if (*sign == 2)
-		len++;
-	return (len);
+	if (sym->minus == 1)
+		sym->zero = 0;
+	// здесь должна быть ширина
+	if (format[sym->i] == '.')
+		sym->precision = 1;
+	return (0);
 }
 
 int		ft_printf(const char *format, ...)
@@ -81,15 +83,16 @@ int		ft_printf(const char *format, ...)
 	sym.i = -1;
 	sym.bits = 0;
 	sym.len = 0;
+	sym.sharp = 0;
+	sym.precision = 0;
 	va_start(arg, format);
 	while (format[++sym.i] != '\0')
 	{
 		while(format[sym.i] == '%')
 		{
 			sym.i++;
-			if (missing_sign(format, &sym.sign, &sym.i))
-				sym.len++;
-            sym.bits += detect_sign(arg, &format[sym.i++], &sym.sign);
+			missing_flags(format, &sym);
+            detect_sign(arg, &format[sym.i++], &sym);
 			va_end (arg);
 		}
 		if (format[sym.i] == '\0')
