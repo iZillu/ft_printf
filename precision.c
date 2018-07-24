@@ -1,41 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   precision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/04 01:15:43 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/04/12 22:17:05 by hmuravch         ###   ########.fr       */
+/*   Created: 2018/07/24 03:35:00 by hmuravch          #+#    #+#             */
+/*   Updated: 2018/07/24 03:35:01 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_putnbr(intmax_t n)
+char	*precision(const char *format, t_sym *sym)
 {
-	intmax_t		num;
-	intmax_t		i;
-	intmax_t		r;
-	size_t			len;
+	char	*str;
+	int		len;
+	int		num;
 
+	num = 0;
 	len = 0;
-	num = 1;
-	r = n;
-	i = 1;
-	if (n < 0)
-	{
-		r = n * -1;
+	while (format[++sym->i] >= '0' && format[sym->i] <= '9')
 		len++;
-	}
-	while ((r / i) > 9)
-		i *= 10;
-	while (i > 0 && ++len)
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	str[len] = '\0';
+	sym->i -= len;
+	while (len--)
+		str[num++] = format[sym->i++];
+	return (str);
+}
+
+size_t	ft_strlen_int(int num)
+{
+	size_t	len;
+	int 	i;
+
+	i = 1;
+	len = 0;
+	if (num < 0)
+		num *= -1;
+	while (i < num)
 	{
-		num = r / i;
-		r = r % i;
-		ft_putchar((char)num + '0');
-		i /= 10;
+		i *= 10;
+		len++;
 	}
 	return (len);
 }

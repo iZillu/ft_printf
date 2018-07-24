@@ -11,22 +11,30 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
-{
-    int check;
+{	
+	size_t	len;
+    int 	check;
 
     check = 0;
 	*d = va_arg(arg, int);
+	len = ft_strlen_int(*d);
+	if (sym->sign == 2 && *d > 0)
+	{
+		ft_putchar(' ');
+		check++;
+	}
+	if (*d < 0)
+		ft_putchar('-');
 	if (sym->sign == 1 && *d > 0)
     {
         ft_putchar('+');
         check++;
     }
-	if (sym->sign == 2 && *d > 0)
+	while (sym->precision-- > len)
 	{
-		ft_putchar(' ');
+		write(1, "0", 1);
 		check++;
 	}
 	if (sym->sign == 2 && *d < 0)
@@ -34,10 +42,19 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 	return (ft_putnbr(*d) + check);
 }
 
-size_t	print_s(va_list arg, char *s)
+size_t	print_s(va_list arg, char *s, t_sym *sym)
 {
+	size_t	i;
+
+	i = 0;
 	s = va_arg(arg, char *);
-	if (s)
+	if (sym->precision < ft_strlen(s))
+	{
+		while (i < sym->precision)
+			write(1, &s[i++], 1);
+		return (sym->precision);
+	}
+	else if (s)
 		ft_putstr(s);
 	else
 	{

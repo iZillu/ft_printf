@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void		detect_sign(va_list arg, const char *format, t_sym *sym)
 {
 	t_type	type;
 
-	if (*format == 's')
-		sym->bits += print_s(arg, type.s);
+		 if (*format == 's')
+		sym->bits += print_s(arg, type.s, sym);
 	else if (*format == 'i' || *format == 'd')
 		sym->bits += print_i_or_d(arg, sym, &type.d);
 	else if (*format == '%')
@@ -49,7 +48,6 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 
 int	missing_flags(const char *format, t_sym *sym)
 {	
-
 	while (format[sym->i] == '+' || format[sym->i] == ' ' || format[sym->i] == '-'
 		|| format[sym->i] == '#')
 	{
@@ -70,7 +68,7 @@ int	missing_flags(const char *format, t_sym *sym)
 		sym->zero = 0;
 	// здесь должна быть ширина
 	if (format[sym->i] == '.')
-		sym->precision = 1;
+		sym->precision = atoi(precision(format, sym));
 	return (0);
 }
 

@@ -10,9 +10,9 @@ int	main()
 	char	*str;
 	int k;
 
-	k = 922323;
+	k = -922323;
 	str = "123456789";
-	printf("LEN IS %i\n", ft_printf("str is %s xD\n", "ASDFGH"));
-    printf("LEN IS %i\n",    printf("str is %8s xD\n", "ASDFGH"));
+	printf("LEN IS %i\n", ft_printf("str is %.7i xD\n", k));
+    printf("LEN IS %i\n",    printf("str is %.7i xD\n", k));
 	return (0);
 }

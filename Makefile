@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/07/22 17:30:47 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/07/24 04:00:36 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC =	ft_printf.c \
 		ft_putchar_unicod.c \
 		print_S_D_o_O_u.c \
 		print_C_s_c_d_p.c \
-		print_U_x_X_%.c
+		print_U_x_X_%.c \
+		precision.c
 
 OBJ = $(SRC:.c=.o)
 
