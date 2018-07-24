@@ -47,6 +47,7 @@ typedef	struct			s_sym
 	int 				sharp;
 	int 				minus;
 	int 				zero;
+	size_t				width;
 	size_t 				precision;
 }						t_sym;
 

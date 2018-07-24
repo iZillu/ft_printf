@@ -66,9 +66,15 @@ int	missing_flags(const char *format, t_sym *sym)
 	}
 	if (sym->minus == 1)
 		sym->zero = 0;
-	// здесь должна быть ширина
+	if (format[sym->i] >= '0' && format[sym->i] <= '9')
+	{
+		sym->i--;
+		sym->width = atoi(precision(format, sym));
+	}
+	printf("\nWIDTH ======== %i\n", sym->zero);
 	if (format[sym->i] == '.')
 		sym->precision = atoi(precision(format, sym));
+	// printf("\nWIDTH ======== %zu\n", sym->precision);
 	return (0);
 }
 
@@ -83,6 +89,7 @@ int		ft_printf(const char *format, ...)
 	sym.len = 0;
 	sym.sharp = 0;
 	sym.precision = 0;
+	sym.width = 0;
 	va_start(arg, format);
 	while (format[++sym.i] != '\0')
 	{

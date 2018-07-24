@@ -14,12 +14,14 @@
 
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 {	
-	size_t	len;
+	size_t	len_precision;
+	size_t	len_width;
     int 	check;
 
     check = 0;
 	*d = va_arg(arg, int);
-	len = ft_strlen_int(*d);
+	len_precision = ft_strlen_int(*d);
+	len_width = ft_strlen_int(*d);
 	if (sym->sign == 2 && *d > 0)
 	{
 		ft_putchar(' ');
@@ -32,11 +34,24 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
         ft_putchar('+');
         check++;
     }
-	while (sym->precision-- > len)
-	{
-		write(1, "0", 1);
-		check++;
-	}
+    if (sym->zero)
+    	while ((sym->width--) > len_width)
+    	{
+    		write(1, "0", 1);
+    		check++;
+    	}
+    else
+    	while ((sym->width--) > len_width)
+    	{
+    	  	write(1, " ", 1);
+    	  	check++;
+    	}
+    if (sym->precision)
+    	while ((sym->precision--) > len_precision)
+    	{
+    		write(1, "0", 1);
+    		check++;
+    	}
 	if (sym->sign == 2 && *d < 0)
 		check--;
 	return (ft_putnbr(*d) + check);
