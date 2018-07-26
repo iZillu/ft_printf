@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/07/24 04:00:36 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/07/27 00:11:59 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,12 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-%.o: %.c $(HEADER)
-	gcc $(FLAGS) -c $< -o $@
-
 $(NAME): $(OBJ)
 	gcc -c $(SRC)
 	ar -rc $(NAME) $(OBJ)
+
+%.o: %.c $(HEADER)
+	gcc $(FLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
@@ -48,5 +48,4 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all
-	
+re: fclean all	

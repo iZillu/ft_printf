@@ -6,7 +6,7 @@
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 05:20:12 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/06/27 05:20:13 by hmuravch         ###   ########.fr       */
+/*   Updated: 2018/07/27 00:18:27 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,33 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 	return (ft_putnbr(*d) + check);
 }
 
-size_t	print_s(va_list arg, char *s, t_sym *sym)
+size_t	print_s(va_list arg, t_sym *sym, char *s)
 {
 	size_t	i;
+	int 	check;
 
 	i = 0;
+	check = 0;
 	s = va_arg(arg, char *);
-	if (sym->precision < ft_strlen(s))
+	while ((sym->width--) > ft_strlen(s))
 	{
-		while (i < sym->precision)
+		write(1, " ", 1);
+		check++;
+	}
+	if (sym->precision)
+	{
+		while (i < sym->precision && s[i])
+		{
 			write(1, &s[i++], 1);
-		return (sym->precision);
+			check--;
+		}
+		check = -1 * (ft_strlen(s) + check);
 	}
 	else if (s)
 		ft_putstr(s);
 	else
-	{
-        s = "(null)";
-        ft_putstr(s);
-    }
-	return (ft_strlen(s));
+   		ft_putstr("(null)");
+	return (ft_strlen(s) + check);
 }
 
 size_t	print_p(va_list arg, unsigned long long *p)

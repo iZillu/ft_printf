@@ -6,7 +6,7 @@
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 05:23:00 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/07/22 17:09:12 by hmuravch         ###   ########.fr       */
+/*   Updated: 2018/07/27 00:19:20 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 	t_type	type;
 
 		 if (*format == 's')
-		sym->bits += print_s(arg, type.s, sym);
+		sym->bits += print_s(arg, sym, type.s);
 	else if (*format == 'i' || *format == 'd')
 		sym->bits += print_i_or_d(arg, sym, &type.d);
 	else if (*format == '%')
@@ -49,7 +49,7 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 int	missing_flags(const char *format, t_sym *sym)
 {	
 	while (format[sym->i] == '+' || format[sym->i] == ' ' || format[sym->i] == '-'
-		|| format[sym->i] == '#')
+		|| format[sym->i] == '#' || format[sym->i] == '0')
 	{
 		if (format[sym->i] == '+')
 			sym->sign = 1;
@@ -71,10 +71,8 @@ int	missing_flags(const char *format, t_sym *sym)
 		sym->i--;
 		sym->width = atoi(precision(format, sym));
 	}
-	printf("\nWIDTH ======== %i\n", sym->zero);
 	if (format[sym->i] == '.')
 		sym->precision = atoi(precision(format, sym));
-	// printf("\nWIDTH ======== %zu\n", sym->precision);
 	return (0);
 }
 
@@ -90,6 +88,7 @@ int		ft_printf(const char *format, ...)
 	sym.sharp = 0;
 	sym.precision = 0;
 	sym.width = 0;
+	sym.zero = 0;
 	va_start(arg, format);
 	while (format[++sym.i] != '\0')
 	{

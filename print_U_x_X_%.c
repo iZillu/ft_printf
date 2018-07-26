@@ -47,9 +47,9 @@ size_t	print_X(va_list arg, long long int *X, t_sym *sym)
 	len = 0;
 	*X = va_arg(arg, long long int);
 	if (sym->sharp == 0)
-		str = itoa_base(*X, 16, 0);
+		str = itoa_base(*X, 16, 1);
 	else
-		str = ft_strjoin("0X", (itoa_base(*X , 16, 0)));
+		str = ft_strjoin("0X", (itoa_base(*X , 16, 1)));
 	ft_putstr(str);
 	len = ft_strlen(str);
 	return (len);

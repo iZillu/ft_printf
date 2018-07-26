@@ -60,7 +60,7 @@ size_t	ft_strlen(const char *s);
 void	ft_putstr(char const *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
-size_t	print_s(va_list arg, char *s, t_sym *sym);
+size_t	print_s(va_list arg, t_sym *sym, char *s);
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d);
 size_t	print_p(va_list arg, unsigned long long *p);
 size_t	print_C(va_list arg, wint_t *C);
