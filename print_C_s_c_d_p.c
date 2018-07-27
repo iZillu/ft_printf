@@ -22,7 +22,7 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 	*d = va_arg(arg, int);
 	len_precision = ft_strlen_int(*d);
 	len_width = ft_strlen_int(*d);
-	if (sym->sign == 2 && *d > 0)
+	if (sym->sign == 2 && *d > 0 && sym->width == 0)
 	{
 		ft_putchar(' ');
 		check++;
@@ -65,6 +65,8 @@ size_t	print_s(va_list arg, t_sym *sym, char *s)
 	i = 0;
 	check = 0;
 	s = va_arg(arg, char *);
+	if (!s)
+		s = "(null)";
 	while ((sym->width--) > ft_strlen(s))
 	{
 		write(1, " ", 1);
@@ -79,10 +81,8 @@ size_t	print_s(va_list arg, t_sym *sym, char *s)
 		}
 		check = -1 * (ft_strlen(s) + check);
 	}
-	else if (s)
-		ft_putstr(s);
 	else
-   		ft_putstr("(null)");
+		ft_putstr(s);
 	return (ft_strlen(s) + check);
 }
 

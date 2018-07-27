@@ -10,9 +10,9 @@ int	main()
 	wchar_t	*str;
 	int k;
 
-	k = -922323;
+	k = 922323;
 	str = L"фывфывфыв ";
-	printf("LEN IS %i\n", ft_printf("str is %.4s xD\n", "ebalom v pol"));
-    printf("LEN IS %i\n",    printf("str is %.4s xD\n", "ebalom v pol"));
+	printf("LEN IS %i\n", ft_printf("str is %x xD\n", 4294967296));
+    printf("LEN IS %i\n",    printf("str is %x xD\n", 4294967296));
 	return (0);
 }

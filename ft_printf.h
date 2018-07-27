@@ -33,8 +33,8 @@ typedef	struct			s_type
 	unsigned long int 	O;
 	long int 			u;
 	unsigned long int 	U;
-	long long int 		x;
-	long long int 		X;
+	int 				x;
+	int 				X;
 	int 				d;
 }						t_type;
 
@@ -72,8 +72,8 @@ size_t	print_o(va_list arg, unsigned int *o, t_sym *sym);
 size_t	print_O(va_list arg, unsigned long int *O, t_sym *sym);
 size_t	print_u(va_list arg, long int *u);
 size_t	print_U(va_list arg, unsigned long int *U);
-size_t	print_x(va_list arg, long long int *x, t_sym *sym);
-size_t	print_X(va_list arg, long long int *X, t_sym *sym);
+size_t	print_x(va_list arg, int *x, t_sym *sym);
+size_t	print_X(va_list arg, int *X, t_sym *sym);
 size_t	print_percent();
 char	*precision(const char *format, t_sym *sym);
 size_t	ft_strlen_int(int num);

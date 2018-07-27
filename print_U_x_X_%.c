@@ -23,13 +23,13 @@ size_t	print_U(va_list arg, unsigned long int *U)
 	return (len);
 }
 
-size_t	print_x(va_list arg, long long int *x, t_sym *sym)
+size_t	print_x(va_list arg, int *x, t_sym *sym)
 {
 	size_t	len;
 	char	*str;
 
 	len = 0;
-	*x = va_arg(arg, long long int);
+	*x = va_arg(arg, int);
 	if (sym->sharp == 0)
 		str = itoa_base(*x, 16, 0);
 	else
@@ -39,13 +39,13 @@ size_t	print_x(va_list arg, long long int *x, t_sym *sym)
 	return (len);
 }
 
-size_t	print_X(va_list arg, long long int *X, t_sym *sym)
+size_t	print_X(va_list arg, int *X, t_sym *sym)
 {
 	size_t	len;
 	char	*str;
 
 	len = 0;
-	*X = va_arg(arg, long long int);
+	*X = va_arg(arg, int);
 	if (sym->sharp == 0)
 		str = itoa_base(*X, 16, 1);
 	else
@@ -55,8 +55,22 @@ size_t	print_X(va_list arg, long long int *X, t_sym *sym)
 	return (len);
 }
 
-size_t	print_percent()
+size_t	print_percent(t_sym *sym)
 {
-	write(1, "%", 1);
-	return (1);
+	int check;
+
+	check = 1;
+	if (sym->minus == 1)
+		write(1, "%", 1);
+	while (sym->width-- > 1)
+	{
+		if (sym->zero == 0)
+			write(1, " ", 1);
+		else
+			write (1, "0", 1);
+		check++;
+	}
+	if (sym->minus == 0)
+		write(1, "%", 1);
+	return (check);
 }

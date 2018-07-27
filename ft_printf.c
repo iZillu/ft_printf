@@ -21,7 +21,7 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 	else if (*format == 'i' || *format == 'd')
 		sym->bits += print_i_or_d(arg, sym, &type.d);
 	else if (*format == '%')
-		sym->bits += print_percent();
+		sym->bits += print_percent(sym);
 	else if (*format == 'p')
 		sym->bits += print_p(arg, &type.p);
 	else if (*format == 'C')
@@ -89,6 +89,7 @@ int		ft_printf(const char *format, ...)
 	sym.precision = 0;
 	sym.width = 0;
 	sym.zero = 0;
+	sym.minus = 0;
 	va_start(arg, format);
 	while (format[++sym.i] != '\0')
 	{
@@ -104,6 +105,6 @@ int		ft_printf(const char *format, ...)
 		sym.bits++;
 		write(1, &format[sym.i], 1);
 	}
-	sym.i = sym.bits + sym.len;
+	sym.i = sym.bits;
 	return (sym.i);
 }
