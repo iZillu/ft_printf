@@ -57,6 +57,7 @@ void	ft_putchar(char c);
 char	*ft_itoa(intmax_t n);
 size_t	ft_putnbr(intmax_t n);
 size_t	ft_strlen(const char *s);
+size_t	ft_atoi(const char *str);
 void	ft_putstr(char const *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);

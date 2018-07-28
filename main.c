@@ -12,7 +12,7 @@ int	main()
 
 	k = 922323;
 	str = L"фывфывфыв ";
-	printf("LEN IS %i\n", ft_printf("%d", 294967296));
-    printf("LEN IS %i\n",    printf("%d", 294967296));
+	printf("LEN IS %i\n", ft_printf("%10d\n", 26));
+    printf("LEN IS %i\n",    printf("%10d\n", 26));
 	return (0);
 }

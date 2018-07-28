@@ -69,10 +69,10 @@ int	missing_flags(const char *format, t_sym *sym)
 	if (format[sym->i] >= '0' && format[sym->i] <= '9')
 	{
 		sym->i--;
-		sym->width = atoi(precision(format, sym));
+		sym->width = ft_atoi(precision(format, sym));
 	}
 	if (format[sym->i] == '.')
-		sym->precision = atoi(precision(format, sym));
+		sym->precision = ft_atoi(precision(format, sym));
 	return (0);
 }
 

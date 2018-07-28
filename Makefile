@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/07/28 04:45:46 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/07/28 04:55:25 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC =	ft_printf.c \
 		ft_putchar.c \
 		ft_putstr.c \
 		ft_strlen.c \
+		ft_atoi.c \
 		ft_putnbr.c \
 		ft_strjoin.c \
 		ft_itoa.c \
