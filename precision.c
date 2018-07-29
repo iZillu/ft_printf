@@ -45,7 +45,7 @@ size_t	ft_strlen_int(int num)
 		len++;
 	}
 	if (num == 1 || num == 0)
-		return (1);
+		return (1 + len);
 	while (i < num)
 	{
 		i *= 10;

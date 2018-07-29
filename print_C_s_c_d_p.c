@@ -26,35 +26,6 @@ void print_space(int *d, t_sym *sym)
 	}
 }
 
-void print_width(t_sym *sym, int *d)
-{
-	if (sym->sign == 1 && *d >= 0 && !sym->zero && sym->width)
-	{
-		sym->width--;
-		sym->save_width--;
-	}
-	sym->precision = sym->save_precision;
-	if (sym->save_width > sym->precision && sym->width > sym->arg_len
-	&& sym->precision > sym->arg_len)
-	{
-		while (sym->width > sym->arg_len)
-		{
-		  	write(1, " ", 1);
-		  	sym->check++;
-		  	sym->width--;
-		}
-	}
-	else if (sym->save_width > sym->precision && sym->width > sym->arg_len)
-	{
-		while (sym->save_width > sym->arg_len)
-		{
-			write(1, " ", 1);
-			sym->check++;
-			sym->save_width--;
-		}
-	}
-}
-
 void print_zero(int *d, t_sym *sym)
 {
 	if (sym->zero && !sym->precision)
@@ -76,6 +47,33 @@ void print_zero(int *d, t_sym *sym)
     }
 }
 
+void print_width(t_sym *sym, int *d)
+{
+	if (sym->sign == 1 && *d >= 0 && !sym->zero && sym->width)
+	{
+		sym->width--;
+		sym->save_width--;
+	}
+	if (*d < 0 && sym->precision)
+		sym->save_precision++;
+	sym->precision = sym->save_precision;
+	if (sym->save_width > sym->precision && sym->width > sym->arg_len
+	&& sym->precision > sym->arg_len)
+		while (sym->width > sym->arg_len)
+		{
+		  	write(1, " ", 1);
+		  	sym->check++;
+		  	sym->width--;
+		}
+	else if (sym->save_width > sym->precision && sym->width > sym->arg_len)
+		while (sym->save_width > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+			sym->save_width--;
+		}
+}
+
 void print_precision(int *d, t_sym *sym)
 {
 	if (*d < 0)
@@ -94,6 +92,13 @@ void print_precision(int *d, t_sym *sym)
 		sym->check--;
 }
 
+void print_plus(t_sym *sym)
+{
+	write(1, "+", 1);
+	sym->check++;
+	sym->arg_len--;
+}
+
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 {	
 	sym->check = 0;
@@ -103,18 +108,14 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
     sym->arg_len = ft_strlen_int(*d);
     print_space(d, sym);
 	if (sym->precision < sym->width && sym->width && sym->precision)
-		sym->width = sym->width - sym->precision + ft_strlen_int(*d);
+		sym->width = sym->width - sym->precision + sym->arg_len;
 	if (sym->sign == 1 && *d >= 0)
 		sym->arg_len++;
 	print_zero(d, sym);
     if (sym->minus == 0)
     	print_width(sym, d);
     if (sym->sign == 1 && *d >= 0 && !sym->zero)
-    {
-        write(1, "+", 1);
-        sym->check++;
-        sym->arg_len--;
-    }
+    	print_plus(sym);
     print_precision(d, sym);
 	if (sym->sign == 2 && *d < 0)
 		sym->check--;
