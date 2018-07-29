@@ -27,10 +27,10 @@ size_t	print_x(va_list arg, int *x, t_sym *sym)
 
 	len = 0;
 	*x = va_arg(arg, int);
-	if (sym->sharp == 0)
-		str = itoa_base(*x, 16, 0);
+	if (sym->sharp == 0 && *x > 0)
+		str = ft_strjoin("0x", (itoa_base(*x , 16, 1)));
 	else
-		str = ft_strjoin("0x", (itoa_base(*x , 16, 0)));
+		str = itoa_base(*x, 16, 1);
 	ft_putstr(str);
 	len = ft_strlen(str);
 	return (len);
@@ -43,10 +43,10 @@ size_t	print_X(va_list arg, int *X, t_sym *sym)
 
 	len = 0;
 	*X = va_arg(arg, int);
-	if (sym->sharp == 0)
-		str = itoa_base(*X, 16, 1);
-	else
+	if (sym->sharp == 0 && *X > 0)
 		str = ft_strjoin("0X", (itoa_base(*X , 16, 1)));
+	else
+		str = itoa_base(*X, 16, 1);
 	ft_putstr(str);
 	len = ft_strlen(str);
 	return (len);

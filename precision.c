@@ -40,7 +40,10 @@ size_t	ft_strlen_int(int num)
 	if (num == -2147483648)
 		return (10);
 	if (num < 0)
+	{
 		num *= -1;
+		len ++;
+	}
 	if (num == 1 || num == 0)
 		return (1);
 	while (i < num)

@@ -15,48 +15,65 @@
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 {	
     int 	check;
+    size_t	arg_len;
     size_t	s_width;
+    size_t	s_precision;
 
-    s_width = sym->width;
     check = 0;
-	*d = va_arg(arg, int);
+    s_width = sym->width;
+    s_precision = sym->precision;
+    *d = va_arg(arg, int);
+    arg_len = ft_strlen_int(*d);
 	if (sym->precision < sym->width && sym->width && sym->precision)
 		sym->width = sym->width - sym->precision + ft_strlen_int(*d);
-	if (sym->sign == 2 && *d > 0 && sym->width == 0)
+	if (sym->sign == 2 && *d > 0 && !sym->width)
 	{
 		ft_putchar(' ');
 		check++;
 	}
-	if (*d < 0)
-		ft_putchar('-');
-	if (sym->sign == 1 && *d > 0)
-    {
-        ft_putchar('+');
-        check++;
-    }
+	if (sym->sign == 2 && sym->minus == 1)
+	{
+		write(1, " ", 1);
+		arg_len++;
+	}
+	if (sym->sign == 1 && *d >= 0)
+		arg_len++;
     if (sym->zero && !sym->precision)
-    	while ((sym->width) > ft_strlen_int(*d))
+    {
+    	if (sym->sign == 1 && *d >= 0)
+    		write(1, "+", 1);
+    	while ((sym->width) > arg_len)
     	{
     		write(1, "0", 1);
     		check++;
     		sym->width--;
     	}
-    else if (s_width > sym->precision && sym->width > ft_strlen_int(*d)
-    	&& sym->precision > ft_strlen_int(*d))
-    	while ((sym->width) > ft_strlen_int(*d))
-    	{
-    	  	write(1, " ", 1);
-    	  	check++;
-    	  	sym->width--;
-    	}
-    else if (s_width > sym->precision && sym->width > ft_strlen_int(*d))
-    	while (s_width > ft_strlen_int(*d))
-    	{
-    		write(1, " ", 1);
-    		check++;
-    		s_width--;
-    	}
-    while ((sym->precision) > ft_strlen_int(*d))
+    }
+    else if (sym->minus == 0)
+    {
+	   	if (s_width > sym->precision && sym->width > arg_len
+		&& sym->precision > arg_len)
+	   		while (sym->width > arg_len)
+	   		{
+	   		  	write(1, " ", 1);
+	   		  	check++;
+	   		  	sym->width--;
+	   		}
+	   	else if (s_width > sym->precision && sym->width > arg_len)
+	   		while (s_width > arg_len)
+	   		{
+	   			write(1, " ", 1);
+	   			check++;
+	   			s_width--;
+	   		}
+	}
+    if (!sym->zero && sym->sign == 1)
+    {
+        write(1, "+", 1);
+        check++;
+        arg_len--;
+    }
+    while ((sym->precision) > arg_len)
     	{
             write(1, "0", 1);
             check++;
@@ -65,7 +82,25 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 	if (sym->sign == 2 && *d < 0)
 		check--;
 	ft_putnbr(*d);
-	return (ft_strlen_int(*d) + check);
+	if (sym->minus == 1)
+	{
+		if (s_width > s_precision && sym->width > arg_len
+			&& s_precision > arg_len)
+	    	while (sym->width > arg_len)
+	    	{
+	    	  	write(1, " ", 1);
+	    	  	check++;
+	    	  	sym->width--;
+	    	}
+	    else if (s_width > s_precision && sym->width > arg_len)
+	    	while (s_width > arg_len)
+	    	{
+	    		write(1, " ", 1);
+	    		check++;
+	    		s_width--;
+	    	}
+	}
+	return (arg_len + check);
 }
 
 size_t	print_s(va_list arg, t_sym *sym, char *s)
