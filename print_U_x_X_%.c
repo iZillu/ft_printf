@@ -14,13 +14,10 @@
 
 size_t	print_U(va_list arg, unsigned long int *U)
 {
-	size_t	len;
-
-	len = 0;
 	*U = va_arg(arg, unsigned long int);
 	if (*U)
-		len = ft_putnbr(*U);
-	return (len);
+		ft_putnbr(*U);
+	return (ft_strlen_int(*U));
 }
 
 size_t	print_x(va_list arg, int *x, t_sym *sym)

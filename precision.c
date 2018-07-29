@@ -32,13 +32,17 @@ char	*precision(const char *format, t_sym *sym)
 
 size_t	ft_strlen_int(int num)
 {
-	size_t	len;
-	int 	i;
+	size_t		len;
+	long long int 	i;
 
 	i = 1;
 	len = 0;
+	if (num == -2147483648)
+		return (10);
 	if (num < 0)
 		num *= -1;
+	if (num == 1 || num == 0)
+		return (1);
 	while (i < num)
 	{
 		i *= 10;

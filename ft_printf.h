@@ -55,7 +55,7 @@ int		ft_printf(const char *format, ...);
 char	*itoa_base(uintmax_t n, int base, int upper);
 void	ft_putchar(char c);
 char	*ft_itoa(intmax_t n);
-size_t	ft_putnbr(intmax_t n);
+void	ft_putnbr(int n);
 size_t	ft_strlen(const char *s);
 size_t	ft_atoi(const char *str);
 void	ft_putstr(char const *s);

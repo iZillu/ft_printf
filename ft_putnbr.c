@@ -12,30 +12,19 @@
 
 #include "ft_printf.h"
 
-size_t	ft_putnbr(intmax_t n)
+void	ft_putnbr(int n)
 {
-	intmax_t		num;
-	intmax_t		i;
-	intmax_t		r;
-	size_t			len;
-
-	len = 0;
-	num = 1;
-	r = n;
-	i = 1;
-	if (n < 0)
+	if (n == -2147483648)
+		ft_putstr("-2147483648");
+	else
 	{
-		r = n * -1;
-		len++;
+		if (n < 0)
+		{
+			ft_putchar('-');
+			n *= -1;
+		}
+		if (n >= 10)
+			ft_putnbr(n / 10);
+		ft_putchar((n % 10) + '0');
 	}
-	while ((r / i) > 9)
-		i *= 10;
-	while (i > 0 && ++len)
-	{
-		num = r / i;
-		r = r % i;
-		ft_putchar((char)num + '0');
-		i /= 10;
-	}
-	return (len);
 }

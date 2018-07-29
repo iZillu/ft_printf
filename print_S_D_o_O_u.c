@@ -26,13 +26,10 @@ size_t	print_S(va_list arg, wchar_t *S)
 
 size_t	print_D(va_list arg, long int *D)
 {
-	size_t	len;
-
-	len = 0;
 	*D = va_arg(arg, long int);
 	if (*D)
-		len = ft_putnbr(*D);
-	return (len);
+		ft_putnbr(*D);
+	return (ft_strlen_int(*D));
 }
 
 size_t	print_o(va_list arg, unsigned int *o, t_sym *sym)
@@ -69,11 +66,8 @@ size_t	print_O(va_list arg, unsigned long int *O, t_sym *sym)
 
 size_t	print_u(va_list arg, long int *u)
 {
-	size_t	len;
-
-	len = 0;
 	*u = va_arg(arg, long int);
 	if (*u)
-		len = ft_putnbr(*u);
-	return (len);
+		ft_putnbr(*u);
+	return (ft_strlen_int(*u));
 }

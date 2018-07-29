@@ -14,14 +14,14 @@
 
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 {	
-	size_t	len_precision;
-	size_t	len_width;
     int 	check;
+    size_t	s_width;
 
+    s_width = sym->width;
     check = 0;
 	*d = va_arg(arg, int);
-	len_precision = ft_strlen_int(*d);
-	len_width = ft_strlen_int(*d);
+	if (sym->precision < sym->width && sym->width && sym->precision)
+		sym->width = sym->width - sym->precision + ft_strlen_int(*d);
 	if (sym->sign == 2 && *d > 0 && sym->width == 0)
 	{
 		ft_putchar(' ');
@@ -34,27 +34,38 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
         ft_putchar('+');
         check++;
     }
-    if (sym->zero)
-    	while ((sym->width--) > len_width)
+    if (sym->zero && !sym->precision)
+    	while ((sym->width) > ft_strlen_int(*d))
     	{
     		write(1, "0", 1);
     		check++;
+    		sym->width--;
     	}
-    else
-    	while ((sym->width--) > len_width)
+    else if (s_width > sym->precision && sym->width > ft_strlen_int(*d)
+    	&& sym->precision > ft_strlen_int(*d))
+    	while ((sym->width) > ft_strlen_int(*d))
     	{
     	  	write(1, " ", 1);
     	  	check++;
+    	  	sym->width--;
     	}
-    if (sym->precision)
-    	while ((sym->precision--) > len_precision)
+    else if (s_width > sym->precision && sym->width > ft_strlen_int(*d))
+    	while (s_width > ft_strlen_int(*d))
     	{
-    		write(1, "0", 1);
+    		write(1, " ", 1);
     		check++;
+    		s_width--;
+    	}
+    while ((sym->precision) > ft_strlen_int(*d))
+    	{
+            write(1, "0", 1);
+            check++;
+            sym->precision--;
     	}
 	if (sym->sign == 2 && *d < 0)
 		check--;
-	return (ft_putnbr(*d) + check);
+	ft_putnbr(*d);
+	return (ft_strlen_int(*d) + check);
 }
 
 size_t	print_s(va_list arg, t_sym *sym, char *s)
@@ -67,10 +78,11 @@ size_t	print_s(va_list arg, t_sym *sym, char *s)
 	s = va_arg(arg, char *);
 	if (!s)
 		s = "(null)";
-	while ((sym->width--) > ft_strlen(s))
+	while ((sym->width) > ft_strlen(s))
 	{
 		write(1, " ", 1);
 		check++;
+		sym->width--;
 	}
 	if (sym->precision)
 	{
