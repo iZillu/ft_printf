@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/07/28 04:55:25 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/07/30 00:27:03 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ HEADER = ft_printf.h
 FLAGS = -Wall -Werror -Wextra
 
 SRC =	ft_printf.c \
-		itoa_base.c \
+		ft_itoa_base.c \
 		ft_putchar.c \
 		ft_putstr.c \
 		ft_strlen.c \
@@ -26,11 +26,13 @@ SRC =	ft_printf.c \
 		ft_strjoin.c \
 		ft_itoa.c \
 		ft_strdup.c \
+		ft_strcpy.c \
 		ft_putchar_unicod.c \
+		print_flags.c \
 		print_S_D_o_O_u.c \
 		print_C_s_c_d_p.c \
 		print_U_x_X_%.c \
-		precision.c
+		ft_precision.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -19,7 +19,7 @@ size_t	ft_putchar_unicod(wchar_t c)
 	int		len;
 
 	size = 1;
-	len = ft_strlen(itoa_base((unsigned long long)c, 2, 0));
+	len = ft_strlen(ft_itoa_base((unsigned long long)c, 2, 0));
 	if (len <= 7)
 		ch[0] = c;
 	else if (len <= 11)

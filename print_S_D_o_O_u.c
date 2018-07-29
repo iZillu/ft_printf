@@ -40,9 +40,9 @@ size_t	print_o(va_list arg, unsigned int *o, t_sym *sym)
 	len = 0;
 	*o = va_arg(arg, unsigned int);
 	if (sym->sharp == 0)
-		str = itoa_base(*o, 8, 0);
+		str = ft_itoa_base(*o, 8, 0);
 	else
-		str = ft_strjoin("0", (itoa_base(*o , 8, 0)));
+		str = ft_strjoin("0", (ft_itoa_base(*o , 8, 0)));
 	ft_putstr(str);
 	len = ft_strlen(str);
 	return (len);
@@ -56,9 +56,9 @@ size_t	print_O(va_list arg, unsigned long int *O, t_sym *sym)
 	len = 0;
 	*O = va_arg(arg, unsigned long int);
 	if (sym->sharp == 0)
-		str = itoa_base(*O, 8, 0);
+		str = ft_itoa_base(*O, 8, 0);
 	else
-		str = ft_strjoin("0", (itoa_base(*O , 8, 0)));
+		str = ft_strjoin("0", (ft_itoa_base(*O , 8, 0)));
 	ft_putstr(str);
 	len = ft_strlen(str);
 	return (len);

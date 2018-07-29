@@ -56,20 +56,23 @@ typedef	struct			s_sym
 }						t_sym;
 
 int		ft_printf(const char *format, ...);
-char	*itoa_base(uintmax_t n, int base, int upper);
-void	ft_putchar(char c);
+char	*ft_itoa_base(unsigned int num, int base, int upper);
 char	*ft_itoa(intmax_t n);
-void	ft_putnbr(int n);
-size_t	ft_strlen(const char *s);
-size_t	ft_atoi(const char *str);
-void	ft_putstr(char const *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
+char	*ft_strcpy(char *dst, const char *src);
+char	*ft_precision(const char *format, t_sym *sym);
+void	ft_putnbr(int n);
+void	ft_putchar(char c);
+void	ft_putstr(char const *s);
+size_t	ft_strlen(const char *s);
+size_t	ft_strlen_int(int num);
+size_t	ft_atoi(const char *str);
+size_t	ft_putchar_unicod(wchar_t c);
 size_t	print_s(va_list arg, t_sym *sym, char *s);
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d);
 size_t	print_p(va_list arg, unsigned long long *p);
 size_t	print_C(va_list arg, wint_t *C);
-size_t	ft_putchar_unicod(wchar_t c);
 size_t	print_c(va_list arg, char *c);
 size_t	print_S(va_list arg, wchar_t *S);
 size_t	print_D(va_list arg, long int *D);
@@ -80,7 +83,10 @@ size_t	print_U(va_list arg, unsigned long int *U);
 size_t	print_x(va_list arg, int *x, t_sym *sym);
 size_t	print_X(va_list arg, int *X, t_sym *sym);
 size_t	print_percent();
-char	*precision(const char *format, t_sym *sym);
-size_t	ft_strlen_int(int num);
+void 	print_width(t_sym *sym, int *d);
+void 	print_space(int *d, t_sym *sym);
+void 	print_zero(int *d, t_sym *sym);
+void 	print_precision(int *d, t_sym *sym);
+void 	print_plus(t_sym *sym);
 
 #endif
