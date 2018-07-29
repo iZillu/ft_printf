@@ -12,95 +12,116 @@
 
 #include "ft_printf.h"
 
-size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
-{	
-    int 	check;
-    size_t	arg_len;
-    size_t	s_width;
-    size_t	s_precision;
-
-    check = 0;
-    s_width = sym->width;
-    s_precision = sym->precision;
-    *d = va_arg(arg, int);
-    arg_len = ft_strlen_int(*d);
-	if (sym->precision < sym->width && sym->width && sym->precision)
-		sym->width = sym->width - sym->precision + ft_strlen_int(*d);
+void print_space(int *d, t_sym *sym)
+{
 	if (sym->sign == 2 && *d > 0 && !sym->width)
 	{
-		ft_putchar(' ');
-		check++;
+		write(1, " ", 1);
+		sym->check++;
 	}
 	if (sym->sign == 2 && sym->minus == 1)
 	{
 		write(1, " ", 1);
-		arg_len++;
+		sym->arg_len++;
 	}
-	if (sym->sign == 1 && *d >= 0)
-		arg_len++;
-    if (sym->zero && !sym->precision)
+}
+
+void print_width(t_sym *sym, int *d)
+{
+	if (sym->sign == 1 && *d >= 0 && !sym->zero && sym->width)
+	{
+		sym->width--;
+		sym->save_width--;
+	}
+	sym->precision = sym->save_precision;
+	if (sym->save_width > sym->precision && sym->width > sym->arg_len
+	&& sym->precision > sym->arg_len)
+	{
+		while (sym->width > sym->arg_len)
+		{
+		  	write(1, " ", 1);
+		  	sym->check++;
+		  	sym->width--;
+		}
+	}
+	else if (sym->save_width > sym->precision && sym->width > sym->arg_len)
+	{
+		while (sym->save_width > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+			sym->save_width--;
+		}
+	}
+}
+
+void print_zero(int *d, t_sym *sym)
+{
+	if (sym->zero && !sym->precision)
     {
     	if (sym->sign == 1 && *d >= 0)
     		write(1, "+", 1);
-    	while ((sym->width) > arg_len)
+    	if (*d < 0)
+		{
+			write(1, "-", 1);
+			*d *= -1;
+			sym->arg_len = ft_strlen_int(*d) + 1;
+		}
+    	while (sym->width > sym->arg_len)
     	{
     		write(1, "0", 1);
-    		check++;
+    		sym->check++;
     		sym->width--;
     	}
     }
-    else if (sym->minus == 0)
-    {
-	   	if (s_width > sym->precision && sym->width > arg_len
-		&& sym->precision > arg_len)
-	   		while (sym->width > arg_len)
-	   		{
-	   		  	write(1, " ", 1);
-	   		  	check++;
-	   		  	sym->width--;
-	   		}
-	   	else if (s_width > sym->precision && sym->width > arg_len)
-	   		while (s_width > arg_len)
-	   		{
-	   			write(1, " ", 1);
-	   			check++;
-	   			s_width--;
-	   		}
+}
+
+void print_precision(int *d, t_sym *sym)
+{
+	if (*d < 0)
+	{
+		write(1, "-", 1);
+		*d *= -1;
+		sym->arg_len = ft_strlen_int(*d) + 1;
 	}
-    if (!sym->zero && sym->sign == 1)
-    {
-        write(1, "+", 1);
-        check++;
-        arg_len--;
-    }
-    while ((sym->precision) > arg_len)
+	while (sym->precision > sym->arg_len)
     	{
             write(1, "0", 1);
-            check++;
+            sym->check++;
             sym->precision--;
     	}
 	if (sym->sign == 2 && *d < 0)
-		check--;
+		sym->check--;
+}
+
+size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
+{	
+	sym->check = 0;
+    sym->save_width = sym->width;
+    sym->save_precision = sym->precision;
+    *d = va_arg(arg, int);
+    sym->arg_len = ft_strlen_int(*d);
+    print_space(d, sym);
+	if (sym->precision < sym->width && sym->width && sym->precision)
+		sym->width = sym->width - sym->precision + ft_strlen_int(*d);
+	if (sym->sign == 1 && *d >= 0)
+		sym->arg_len++;
+	print_zero(d, sym);
+    if (sym->minus == 0)
+    	print_width(sym, d);
+    if (sym->sign == 1 && *d >= 0 && !sym->zero)
+    {
+        write(1, "+", 1);
+        sym->check++;
+        sym->arg_len--;
+    }
+    print_precision(d, sym);
+	if (sym->sign == 2 && *d < 0)
+		sym->check--;
 	ft_putnbr(*d);
 	if (sym->minus == 1)
-	{
-		if (s_width > s_precision && sym->width > arg_len
-			&& s_precision > arg_len)
-	    	while (sym->width > arg_len)
-	    	{
-	    	  	write(1, " ", 1);
-	    	  	check++;
-	    	  	sym->width--;
-	    	}
-	    else if (s_width > s_precision && sym->width > arg_len)
-	    	while (s_width > arg_len)
-	    	{
-	    		write(1, " ", 1);
-	    		check++;
-	    		s_width--;
-	    	}
-	}
-	return (arg_len + check);
+		print_width(sym, d);
+	return (sym->arg_len + sym->check);
 }
 
 size_t	print_s(va_list arg, t_sym *sym, char *s)

@@ -42,7 +42,7 @@ size_t	ft_strlen_int(int num)
 	if (num < 0)
 	{
 		num *= -1;
-		len ++;
+		len++;
 	}
 	if (num == 1 || num == 0)
 		return (1);

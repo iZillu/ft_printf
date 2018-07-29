@@ -12,7 +12,7 @@ int	main()
 
 	k = 922323;
 	str = L"фывфывфыв ";
-	printf("LEN IS %i\n", ft_printf("%- 3dxD\n", 1));
-    printf("LEN IS %i\n",    printf("%- 3dxD\n", 1));
+	printf("LEN IS %i\n", ft_printf("%0d", -42));
+    printf("LEN IS %i\n",    printf("%0d", -42));
 	return (0);
 }
