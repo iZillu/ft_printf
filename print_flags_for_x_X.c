@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-void print_zero_x(t_sym *sym)
+void print_zero_x(int *x, t_sym *sym)
 {
 	if (sym->zero && !sym->precision)
     {
-    	if (sym->sharp == 1)
+    	if (sym->sharp == 1 && *x != 0)
     	{
     		write(1, "0x", 2);
     		sym->check += 2;
@@ -50,9 +50,9 @@ void print_width_x(t_sym *sym)
 		}
 }
 
-void print_precision_x(t_sym *sym)
+void print_precision_x(int *x, t_sym *sym)
 {
-	if ((sym->sharp == 1 && sym->precision))
+	if ((sym->sharp == 1 && sym->precision && *x != 0))
 	{
 		write(1, "0x", 2);
 		sym->check += 2;

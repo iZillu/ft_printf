@@ -60,7 +60,7 @@ int	missing_flags(const char *format, t_sym *sym)
 			sym->sharp = 1;
 		if (format[sym->i] == '-')
 			sym->minus = 1;
-		if (format[sym->i] == '0') // d, i, o, u, x, X
+		if (format[sym->i] == '0')
 			sym->zero = 1;
 		sym->i += 1;
 	}
@@ -72,7 +72,10 @@ int	missing_flags(const char *format, t_sym *sym)
 		sym->width = ft_atoi(ft_precision(format, sym));
 	}
 	if (format[sym->i] == '.')
+	{
 		sym->precision = ft_atoi(ft_precision(format, sym));
+		sym->dot++;
+	}
 	return (0);
 }
 
@@ -90,6 +93,7 @@ int		ft_printf(const char *format, ...)
 	sym.width = 0;
 	sym.zero = 0;
 	sym.minus = 0;
+	sym.dot = 0;
 	va_start(arg, format);
 	while (format[++sym.i] != '\0')
 	{

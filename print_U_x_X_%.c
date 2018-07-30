@@ -26,22 +26,24 @@ size_t	print_x(va_list arg, int *x, t_sym *sym)
 
 	*x = va_arg(arg, int);
 	sym->check = 0;
-	// sym->save_width = sym->width;
     sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *x != 0)
 		str = ft_strjoin("0x", (ft_itoa_base(*x , 16, 0)));
 	else
 		str = ft_itoa_base(*x, 16, 0);
+	if (sym->dot && !sym->precision && *x == 0)
+		str = NULL;
 	sym->arg_len = ft_strlen(str);
-	if ((sym->sharp == 1 && sym->precision) || (sym->sharp == 1 && sym->zero))
+	if (((sym->sharp == 1 && sym->precision) || (sym->sharp == 1 && sym->zero))
+		&& sym->width)
 		sym->width -= 2;
 	sym->save_width = sym->width;
 	if (sym->precision < sym->width && sym->width && sym->precision)
 		sym->width = sym->width - sym->precision + sym->arg_len;
-	print_zero_x(sym);
+	print_zero_x(x, sym);
     if (sym->minus == 0)
     	print_width_x(sym);
-    print_precision_x(sym);
+    print_precision_x(x, sym);
 	ft_putstr(str);
 	if (sym->minus == 1)
 		print_width_x(sym);

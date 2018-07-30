@@ -12,7 +12,7 @@ int	main()
 
 	k = 922323;
 	str = L"фывфывфыв ";
-	printf("LEN IS %i\n", ft_printf("@moulitest:%#0x %#xD\n", 12, 12));
-    printf("LEN IS %i\n",    printf("@moulitest:%#0x %#xD\n", 12, 12));
+	printf("LEN IS %i\n", ft_printf("@moulitest:%.x %.0x\n", 0, 0));
+    printf("LEN IS %i\n",    printf("@moulitest:%.x %.0x\n", 0, 0));
 	return (0);
 }
