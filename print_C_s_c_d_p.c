@@ -14,27 +14,27 @@
 
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 {	
+	*d = va_arg(arg, int);
 	sym->check = 0;
     sym->save_width = sym->width;
     sym->save_precision = sym->precision;
-    *d = va_arg(arg, int);
     sym->arg_len = ft_strlen_int(*d);
-    print_space(d, sym);
+    print_space_d(d, sym);
 	if (sym->precision < sym->width && sym->width && sym->precision)
 		sym->width = sym->width - sym->precision + sym->arg_len;
 	if (sym->sign == 1 && *d >= 0)
 		sym->arg_len++;
-	print_zero(d, sym);
+	print_zero_d(d, sym);
     if (sym->minus == 0)
-    	print_width(sym, d);
+    	print_width_d(d, sym);
     if (sym->sign == 1 && *d >= 0 && !sym->zero)
-    	print_plus(sym);
-    print_precision(d, sym);
+    	print_plus_d(sym);
+    print_precision_d(d, sym);
 	if (sym->sign == 2 && *d < 0)
 		sym->check--;
 	ft_putnbr(*d);
 	if (sym->minus == 1)
-		print_width(sym, d);
+		print_width_d(d, sym);
 	return (sym->arg_len + sym->check);
 }
 

@@ -83,10 +83,13 @@ size_t	print_U(va_list arg, unsigned long int *U);
 size_t	print_x(va_list arg, int *x, t_sym *sym);
 size_t	print_X(va_list arg, int *X, t_sym *sym);
 size_t	print_percent();
-void 	print_width(t_sym *sym, int *d);
-void 	print_space(int *d, t_sym *sym);
-void 	print_zero(int *d, t_sym *sym);
-void 	print_precision(int *d, t_sym *sym);
-void 	print_plus(t_sym *sym);
+void 	print_width_d(int *d, t_sym *sym);
+void 	print_space_d(int *d, t_sym *sym);
+void 	print_zero_d(int *d, t_sym *sym);
+void 	print_precision_d(int *d, t_sym *sym);
+void 	print_plus_d(t_sym *sym);
+void 	print_zero_x(t_sym *sym);
+void 	print_width_x(t_sym *sym);
+void 	print_precision_x(t_sym *sym);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/07/30 00:27:03 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/07/30 02:39:06 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC =	ft_printf.c \
 		ft_strdup.c \
 		ft_strcpy.c \
 		ft_putchar_unicod.c \
-		print_flags.c \
+		print_flags_for_d_i.c \
+		print_flags_for_x_X.c \
 		print_S_D_o_O_u.c \
 		print_C_s_c_d_p.c \
 		print_U_x_X_%.c \
