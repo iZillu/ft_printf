@@ -30,10 +30,10 @@ char	*ft_precision(const char *format, t_sym *sym)
 	return (str);
 }
 
-size_t	ft_strlen_int(int num)
+size_t	ft_strlen_int(intmax_t num)
 {
 	size_t		len;
-	long long int 	i;
+	intmax_t 	i;
 
 	i = 1;
 	len = 0;
@@ -44,6 +44,23 @@ size_t	ft_strlen_int(int num)
 		num *= -1;
 		len++;
 	}
+	if (num == 1 || num == 0)
+		return (1 + len);
+	while (i < num)
+	{
+		i *= 10;
+		len++;
+	}
+	return (len);
+}
+
+size_t	ft_strlen_U_int(uintmax_t num)
+{
+	size_t		len;
+	uintmax_t	i;
+
+	i = 1;
+	len = 0;
 	if (num == 1 || num == 0)
 		return (1 + len);
 	while (i < num)

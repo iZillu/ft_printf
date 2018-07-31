@@ -20,29 +20,29 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 		sym->bits += print_s(arg, sym, type.s);
 	if (*format == 'i' || *format == 'd')
 		sym->bits += print_i_or_d(arg, sym, &type.d);
-	 if (*format == '%')
+	if (*format == '%')
 		sym->bits += print_percent(sym);
-	 if (*format == 'p')
+	if (*format == 'p')
 		sym->bits += print_p(arg, &type.p);
-	 if (*format == 'C')
+	if (*format == 'C')
 		sym->bits += print_C(arg, &type.C);
-	 if (*format == 'c')
+	if (*format == 'c')
 		sym->bits += print_c(arg, &type.c);
-	 if (*format == 'S')
+	if (*format == 'S')
 		sym->bits += print_S(arg, type.S);
-	 if (*format == 'D')
+	if (*format == 'D')
 		sym->bits += print_D(arg, &type.D);
-	 if (*format == 'o')
+	if (*format == 'o')
 		sym->bits += print_o(arg, &type.o, sym);
-	 if (*format == 'O')
+	if (*format == 'O')
 		sym->bits += print_O(arg, &type.O, sym);
-	 if (*format == 'u')
-		sym->bits += print_u(arg, &type.u);
-	 if (*format == 'U')
-		sym->bits += print_U(arg, &type.U);
-	 if (*format == 'x')
+	if (*format == 'u')
+		sym->bits += print_u(arg, &type.u, sym);
+	if (*format == 'U')
+		sym->bits += print_U(arg, &type.U, sym);
+	if (*format == 'x')
 		sym->bits += print_x(arg, &type.x, sym);
-	 if (*format == 'X')
+	if (*format == 'X')
 		sym->bits += print_X(arg, &type.X, sym);
 }
 

@@ -32,7 +32,12 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
     print_precision_d(d, sym);
 	if (sym->sign == 2 && *d < 0)
 		sym->check--;
-	ft_putnbr(*d);
+	if (sym->dot && !sym->precision && *d == 0 && sym->save_width)
+		write(1, " ", 1);
+	else if (!(sym->dot && !sym->precision && *d == 0))
+		ft_putnbr(*d);
+	else
+		sym->check--;
 	if (sym->minus == 1)
 		print_width_d(d, sym);
 	return (sym->arg_len + sym->check);
@@ -40,32 +45,31 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
 
 size_t	print_s(va_list arg, t_sym *sym, char *s)
 {
-	size_t	i;
-	int 	check;
-
-	i = 0;
-	check = 0;
 	s = va_arg(arg, char *);
+	sym->check = 0;
 	if (!s)
 		s = "(null)";
-	while ((sym->width) > ft_strlen(s))
-	{
-		write(1, " ", 1);
-		check++;
-		sym->width--;
-	}
-	if (sym->precision)
-	{
-		while (i < sym->precision && s[i])
-		{
-			write(1, &s[i++], 1);
-			check--;
-		}
-		check = -1 * (ft_strlen(s) + check);
-	}
-	else
-		ft_putstr(s);
-	return (ft_strlen(s) + check);
+	sym->arg_len = ft_strlen(s);
+	if (sym->precision < sym->arg_len && sym->precision)
+		sym->arg_len = sym->precision;
+	sym->save_arg_len = sym->arg_len;
+    if (sym->minus == 0)
+    	while (sym->width > sym->arg_len)
+    	{
+    		write(1, " ", 1);
+    		sym->width--;
+    		sym->check++;
+    	}
+    while (sym->arg_len--)
+    	write(1, s++, 1);
+	if (sym->minus == 1)
+		while (sym->width > sym->save_arg_len)
+    	{
+    		write(1, " ", 1);
+    		sym->width--;
+    		sym->check++;
+    	}
+	return (sym->save_arg_len + sym->check);
 }
 
 size_t	print_p(va_list arg, unsigned long long *p)

@@ -24,9 +24,9 @@ size_t	print_S(va_list arg, wchar_t *S)
 	return (len);
 }
 
-size_t	print_D(va_list arg, long int *D)
+size_t	print_D(va_list arg, unsigned int *D)
 {
-	*D = va_arg(arg, long int);
+	*D = va_arg(arg, unsigned int);
 	if (*D)
 		ft_putnbr(*D);
 	return (ft_strlen_int(*D));
@@ -48,7 +48,7 @@ size_t	print_o(va_list arg, unsigned int *o, t_sym *sym)
 	return (len);
 }
 
-size_t	print_O(va_list arg, unsigned long int *O, t_sym *sym)
+size_t	print_O(va_list arg, unsigned int *O, t_sym *sym)
 {
 	size_t	len;
 	char	*str;
@@ -64,10 +64,27 @@ size_t	print_O(va_list arg, unsigned long int *O, t_sym *sym)
 	return (len);
 }
 
-size_t	print_u(va_list arg, long int *u)
+size_t	print_u(va_list arg, unsigned int *u, t_sym *sym)
 {
-	*u = va_arg(arg, long int);
-	if (*u)
+	*u = va_arg(arg, unsigned int);
+	sym->check = 0;
+    sym->save_width = sym->width;
+    sym->save_precision = sym->precision;
+    sym->arg_len = ft_strlen_int(*u);
+    print_space_u(sym);
+	if (sym->precision < sym->width && sym->width && sym->precision)
+		sym->width = sym->width - sym->precision + sym->arg_len;
+	print_zero_u(sym);
+    if (sym->minus == 0)
+    	print_width_u(sym);
+    print_precision_u(sym);
+	if (sym->dot && !sym->precision && *u == 0 && sym->save_width)
+		write(1, " ", 1);
+	else if (!(sym->dot && !sym->precision && *u == 0))
 		ft_putnbr(*u);
-	return (ft_strlen_int(*u));
+	else
+		sym->check--;
+	if (sym->minus == 1)
+		print_width_u(sym);
+	return (sym->arg_len + sym->check);
 }
