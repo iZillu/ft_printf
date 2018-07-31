@@ -70,3 +70,20 @@ size_t	ft_strlen_U_int(uintmax_t num)
 	}
 	return (len);
 }
+
+void initializer(t_sym *sym)
+{
+	sym->sign = 0;
+	sym->len = 0;
+	sym->sharp = 0;
+	sym->minus = 0;
+	sym->zero = 0;
+	sym->dot = 0;
+	sym->check = 0;
+	sym->width = 0;
+	sym->save_width = 0;
+	sym->save_precision = 0;
+	sym->save_arg_len = 0;
+	sym->arg_len = 0;
+	sym->precision = 0;
+}

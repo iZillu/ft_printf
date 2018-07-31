@@ -12,7 +12,7 @@ int	main()
 
 	k = 922323;
 	str = L"фывфывфыв ";
-	printf("LEN IS %i\n", ft_printf("%U AND %u\n", 4429496729, 4294967296));
-    printf("LEN IS %i\n",    printf("%U AND %u\n", 4429496729, 4294967296));
+	printf("LEN IS %i\n", ft_printf("%#.o%#.0o", 0, 0));
+    printf("LEN IS %i\n",    printf("%#.o%#.0o", 0, 0));
 	return (0);
 }

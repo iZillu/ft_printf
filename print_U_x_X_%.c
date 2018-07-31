@@ -15,7 +15,6 @@
 size_t	print_U(va_list arg, unsigned long long int *U, t_sym *sym)
 {
 	*U = va_arg(arg, unsigned long long int);
-	sym->check = 0;
     sym->save_width = sym->width;
     sym->save_precision = sym->precision;
     sym->arg_len = ft_strlen_U_int(*U);
@@ -42,7 +41,6 @@ size_t	print_x(va_list arg, int *x, t_sym *sym)
 	char	*str;
 
 	*x = va_arg(arg, int);
-	sym->check = 0;
     sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *x != 0)
 		str = ft_strjoin("0x", (ft_itoa_base(*x , 16, 0)));
@@ -72,7 +70,6 @@ size_t	print_X(va_list arg, int *X, t_sym *sym)
 	char	*str;
 
 	*X = va_arg(arg, int);
-	sym->check = 0;
     sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *X != 0)
 		str = ft_strjoin("0X", (ft_itoa_base(*X , 16, 1)));

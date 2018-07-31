@@ -27,7 +27,7 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 	if (*format == 'C')
 		sym->bits += print_C(arg, &type.C);
 	if (*format == 'c')
-		sym->bits += print_c(arg, &type.c);
+		sym->bits += print_c(arg, &type.c, sym);
 	if (*format == 'S')
 		sym->bits += print_S(arg, type.S);
 	if (*format == 'D')
@@ -84,16 +84,9 @@ int		ft_printf(const char *format, ...)
 	va_list	arg;
 	t_sym 	sym;
 
-	sym.sign = 0;
 	sym.i = -1;
 	sym.bits = 0;
-	sym.len = 0;
-	sym.sharp = 0;
-	sym.precision = 0;
-	sym.width = 0;
-	sym.zero = 0;
-	sym.minus = 0;
-	sym.dot = 0;
+	initializer(&sym);
 	va_start(arg, format);
 	while (format[++sym.i] != '\0')
 	{
@@ -102,6 +95,7 @@ int		ft_printf(const char *format, ...)
 			sym.i++;
 			missing_flags(format, &sym);
             detect_sign(arg, &format[sym.i++], &sym);
+            initializer(&sym);
 			va_end (arg);
 		}
 		if (format[sym.i] == '\0')

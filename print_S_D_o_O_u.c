@@ -34,18 +34,28 @@ size_t	print_D(va_list arg, unsigned int *D)
 
 size_t	print_o(va_list arg, unsigned int *o, t_sym *sym)
 {
-	size_t	len;
 	char	*str;
 
-	len = 0;
 	*o = va_arg(arg, unsigned int);
-	if (sym->sharp == 0)
-		str = ft_itoa_base(*o, 8, 0);
-	else
+    sym->save_precision = sym->precision;
+	if (sym->sharp == 1 && !sym->precision && !sym->zero && *o != 0)
 		str = ft_strjoin("0", (ft_itoa_base(*o , 8, 0)));
+	else
+		str = ft_itoa_base(*o, 8, 0);
+	if (sym->dot && !sym->precision && *o == 0)
+		str = NULL;
+	sym->arg_len = ft_strlen(str);
+	sym->save_width = sym->width;
+	if (sym->precision < sym->width && sym->width && sym->precision)
+		sym->width = sym->width - sym->precision + sym->arg_len;
+	print_zero_o(o, sym);
+    if (sym->minus == 0)
+    	print_width_o(sym);
+    print_precision_o(o, sym);
 	ft_putstr(str);
-	len = ft_strlen(str);
-	return (len);
+	if (sym->minus == 1)
+		print_width_o(sym);
+	return (sym->arg_len + sym->check);
 }
 
 size_t	print_O(va_list arg, unsigned int *O, t_sym *sym)
@@ -67,7 +77,6 @@ size_t	print_O(va_list arg, unsigned int *O, t_sym *sym)
 size_t	print_u(va_list arg, unsigned int *u, t_sym *sym)
 {
 	*u = va_arg(arg, unsigned int);
-	sym->check = 0;
     sym->save_width = sym->width;
     sym->save_precision = sym->precision;
     sym->arg_len = ft_strlen_int(*u);
