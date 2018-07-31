@@ -14,7 +14,7 @@
 
 void print_space_d(int *d, t_sym *sym)
 {
-	if (sym->sign == 2 && *d > 0 && !sym->width)
+	if (sym->sign == 2 && *d > 0 && sym->width < sym->precision)
 	{
 		write(1, " ", 1);
 		sym->check++;
