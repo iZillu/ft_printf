@@ -19,6 +19,12 @@ void print_space_d(int *d, t_sym *sym)
 		write(1, " ", 1);
 		sym->check++;
 	}
+	if (!sym->minus && *d > 0 && sym->sign == 2 && sym->width <= sym->precision
+		&& sym->precision > sym->arg_len)
+	{
+		write(1, " ", 1);
+		sym->check++;
+	}
 }
 
 void print_zero_d(int *d, t_sym *sym)
