@@ -43,9 +43,9 @@ size_t	print_x(va_list arg, int *x, t_sym *sym)
 	*x = va_arg(arg, int);
     sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *x != 0)
-		str = ft_strjoin("0x", (ft_itoa_base(*x , 16, 0)));
+		str = ft_strjoin("0x", (ft_itoa_base_x(*x , 16, 0)));
 	else
-		str = ft_itoa_base(*x, 16, 0);
+		str = ft_itoa_base_x(*x, 16, 0);
 	if (sym->dot && !sym->precision && *x == 0)
 		str = NULL;
 	sym->arg_len = ft_strlen(str);
@@ -72,9 +72,9 @@ size_t	print_X(va_list arg, int *X, t_sym *sym)
 	*X = va_arg(arg, int);
     sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *X != 0)
-		str = ft_strjoin("0X", (ft_itoa_base(*X , 16, 1)));
+		str = ft_strjoin("0X", (ft_itoa_base_x(*X , 16, 1)));
 	else
-		str = ft_itoa_base(*X, 16, 1);
+		str = ft_itoa_base_x(*X, 16, 1);
 	if (sym->dot && !sym->precision && *X == 0)
 		str = NULL;
 	sym->arg_len = ft_strlen(str);

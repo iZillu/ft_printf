@@ -12,7 +12,7 @@ int	main()
 
 	k = 922323;
 	str = "asdasd";
-	printf("LEN IS %i\n", ft_printf("%p\n", str));
-    printf("LEN IS %i\n",    printf("%p\n", str));
+	printf("LEN IS %i\n", ft_printf("%x\n", -42));
+    printf("LEN IS %i\n",    printf("%x\n", -42));
 	return (0);
 }

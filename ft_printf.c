@@ -23,7 +23,7 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 	if (*format == '%')
 		sym->bits += print_percent(sym);
 	if (*format == 'p')
-		sym->bits += print_p(arg, &type.p);
+		sym->bits += print_p(arg, &type.p, sym);
 	if (*format == 'C')
 		sym->bits += print_C(arg, &type.C);
 	if (*format == 'c')

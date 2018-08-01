@@ -59,7 +59,8 @@ typedef	struct			s_sym
 
 int		ft_printf(const char *format, ...);
 void 	initializer(t_sym *sym);
-char	*ft_itoa_base(unsigned int num, int base, int upper);
+char	*ft_itoa_base(uintmax_t num, int base, int upper);
+char	*ft_itoa_base_x(unsigned int num, int base, int upper);
 char	*ft_itoa(intmax_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
@@ -75,7 +76,7 @@ size_t	ft_atoi(const char *str);
 size_t	ft_putchar_unicod(wchar_t c);
 size_t	print_s(va_list arg, t_sym *sym, char *s);
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d);
-size_t	print_p(va_list arg, void *p);
+size_t	print_p(va_list arg, void *p, t_sym *sym);
 size_t	print_C(va_list arg, wint_t *C);
 size_t	print_c(va_list arg, char *c, t_sym *sym);
 size_t	print_S(va_list arg, wchar_t *S);
