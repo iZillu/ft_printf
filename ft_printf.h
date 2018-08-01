@@ -25,7 +25,7 @@ typedef	struct			s_type
 {
 	char					*s;
 	wchar_t					*S;
-	unsigned long long 		p;
+	void 					*p;
 	wint_t					C;
 	char 					c;
 	unsigned int			D;
@@ -75,7 +75,7 @@ size_t	ft_atoi(const char *str);
 size_t	ft_putchar_unicod(wchar_t c);
 size_t	print_s(va_list arg, t_sym *sym, char *s);
 size_t	print_i_or_d(va_list arg, t_sym *sym, int *d);
-size_t	print_p(va_list arg, unsigned long long *p);
+size_t	print_p(va_list arg, void *p);
 size_t	print_C(va_list arg, wint_t *C);
 size_t	print_c(va_list arg, char *c, t_sym *sym);
 size_t	print_S(va_list arg, wchar_t *S);
