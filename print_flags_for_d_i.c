@@ -14,15 +14,10 @@
 
 void print_space_d(int *d, t_sym *sym)
 {
-	if (sym->sign == 2 && *d > 0 && sym->width < sym->precision)
+	if (!sym->minus && *d > 0 && sym->sign == 2 && sym->width <= sym->arg_len)
 	{
 		write(1, " ", 1);
 		sym->check++;
-	}
-	if (sym->sign == 2 && sym->minus == 1)
-	{
-		write(1, " ", 1);
-		sym->arg_len++;
 	}
 }
 
