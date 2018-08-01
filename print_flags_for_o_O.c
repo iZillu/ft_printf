@@ -59,10 +59,10 @@ void print_precision_o(unsigned int *x, t_sym *sym)
 		sym->check++;
 		sym->precision--;
 	}
-	if ((sym->sharp == 1 && !sym->precision && *x == 0))
+	if (sym->sharp == 1 && !sym->precision && sym->dot && *x == 0)
 	{
 		write(1, "0", 1);
-		// sym->check++;
+		sym->check++;
 	}
 	while (sym->precision > sym->arg_len)
     	{

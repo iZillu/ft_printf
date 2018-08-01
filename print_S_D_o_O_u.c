@@ -44,10 +44,7 @@ size_t	print_o(va_list arg, unsigned int *o, t_sym *sym)
 		str = ft_itoa_base(*o, 8, 0);
 	if (sym->dot && !sym->precision && *o == 0)
 		str = NULL;
-	if (str)
-		sym->arg_len = ft_strlen(str);
-	else
-		sym->arg_len = 1;
+	sym->arg_len = ft_strlen(str);
 	sym->save_width = sym->width;
 	if (sym->precision < sym->width && sym->width && sym->precision)
 		sym->width = sym->width - sym->precision + sym->arg_len;

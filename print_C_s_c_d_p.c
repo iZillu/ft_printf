@@ -70,16 +70,22 @@ size_t	print_s(va_list arg, t_sym *sym, char *s)
 	return (sym->save_arg_len + sym->check);
 }
 
-size_t	print_p(va_list arg, unsigned long long *p)
+size_t	print_p(va_list arg, void *p)
 {
 	size_t	len;
 	char	*str;
 
-	len = 0;
-	*p = va_arg(arg, unsigned long long);
-	str = ft_strjoin("0x", (ft_itoa_base(*p , 16, 0)));
+	len = 4;
+	p = va_arg(arg, void *);
+	str = ft_itoa_base((unsigned int)p , 16, 0);
+	write(1, "0x10", 4);
+	if (ft_strlen(str) == 6)
+	{
+		write(1, "0", 1);
+		len++;
+	}
 	ft_putstr(str);
-	len = ft_strlen(str);
+	len += ft_strlen(str);
 	return (len);
 }
 

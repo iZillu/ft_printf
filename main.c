@@ -7,12 +7,12 @@
 int	main()
 {
 	setlocale(LC_ALL, "");
-	wchar_t	*str;
-	int k;
+	char	*str;
+	int 	k;
 
 	k = 922323;
-	str = L"фывфывфыв ";
-	printf("LEN IS %i\n", ft_printf("%#1.o\n", 0));
-    printf("LEN IS %i\n",    printf("%#1.o\n", 0));
+	str = "asdasd";
+	printf("LEN IS %i\n", ft_printf("%p\n", str));
+    printf("LEN IS %i\n",    printf("%p\n", str));
 	return (0);
 }
