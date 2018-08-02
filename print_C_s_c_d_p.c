@@ -76,22 +76,45 @@ size_t	print_p(va_list arg, void *p, t_sym *sym)
 
 	p = va_arg(arg, void *);
 	str = ft_itoa_base((uintmax_t)p , 16, 0);
+	sym->arg_len += ft_strlen(str) + 2;
+	if (!sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
 	write(1, "0x", 2);
-	sym->arg_len += 2;
 	ft_putstr(str);
-	sym->arg_len += ft_strlen(str);
-	return (sym->arg_len);
+	if (sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
+	return (sym->arg_len + sym->check);
 }
 
-size_t	print_C(va_list arg, wint_t *C)
+size_t	print_C(va_list arg, wint_t *C, t_sym *sym)
 {
-	size_t	len;
+	char	*u_code;
 
-	len = 0;
 	*C = va_arg(arg, wint_t);
 	if (C)
-		len += ft_putchar_unicod(*C);
-	return (len);
+		u_code = ft_putchar_unicode(*C, sym);
+	if (!sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
+	ft_putstr(u_code);
+	if (sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
+	return (sym->arg_len + sym->check);
 }
 
 size_t	print_c(va_list arg, char *c, t_sym *sym)

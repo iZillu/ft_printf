@@ -12,16 +12,34 @@
 
 #include "ft_printf.h"
 
-size_t	print_S(va_list arg, wchar_t *S)
+size_t	print_S(va_list arg, wchar_t *S, t_sym *sym)
 {
-	size_t	len;
+	// if (S)
+	// 	while (*S)
+	// 		len += ft_putchar_unicod(*S++);
+	char		*u_code = NULL;
+	int 		i;
 
-	len = 0;
+	i = 0;
 	S = va_arg(arg, wchar_t *);
 	if (S)
 		while (*S)
-			len += ft_putchar_unicod(*S++);
-	return (len);
+			u_code[i++] = *ft_putchar_unicode(*S++, sym);
+	if (!sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
+	while (*u_code)
+		ft_putstr(u_code++);
+	if (sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
+	return (sym->arg_len + sym->check);
 }
 
 size_t	print_D(va_list arg, unsigned int *D)

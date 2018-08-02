@@ -25,11 +25,11 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 	if (*format == 'p')
 		sym->bits += print_p(arg, &type.p, sym);
 	if (*format == 'C')
-		sym->bits += print_C(arg, &type.C);
+		sym->bits += print_C(arg, &type.C, sym);
 	if (*format == 'c')
 		sym->bits += print_c(arg, &type.c, sym);
 	if (*format == 'S')
-		sym->bits += print_S(arg, type.S);
+		sym->bits += print_S(arg, type.S, sym);
 	if (*format == 'D')
 		sym->bits += print_D(arg, &type.D);
 	if (*format == 'o')
