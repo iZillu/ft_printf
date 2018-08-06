@@ -15,11 +15,13 @@
 char	*ft_putchar_unicode(wchar_t c, t_sym *sym)
 {
 	char 	*ch;
+	char	*tmp;
 	int		len;
 
 	sym->arg_len += 1;
 	ch = (char *)malloc(sizeof(char) * 5);
-	len = ft_strlen(ft_itoa_base_x((unsigned long long)c, 2, 0));
+	tmp = ft_itoa_base_x((unsigned long long)c, 2, 0);
+	len = ft_strlen(tmp);
 	if (len <= 7)
 		ch[0] = c;
 	else if (len <= 11)
@@ -44,6 +46,6 @@ char	*ft_putchar_unicode(wchar_t c, t_sym *sym)
 		ch[3] = (63 & c) | 128;	
 	}
 	ch[4] = '\0';
-	// write(1, &ch, sym->arg_len);
+	ft_strdel(&tmp);
 	return (ch);
 }

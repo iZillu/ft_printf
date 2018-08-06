@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void print_space_d(int *d, t_sym *sym)
+void print_space_d(intmax_t *d, t_sym *sym)
 {
 	if (!sym->minus && *d > 0 && sym->sign == 2 && sym->width <= sym->arg_len)
 	{
@@ -27,7 +27,7 @@ void print_space_d(int *d, t_sym *sym)
 	}
 }
 
-void print_zero_d(int *d, t_sym *sym)
+void print_zero_d(intmax_t *d, t_sym *sym)
 {
 	if (sym->zero && !sym->precision)
     {
@@ -48,7 +48,7 @@ void print_zero_d(int *d, t_sym *sym)
     }
 }
 
-void print_width_d(int *d, t_sym *sym)
+void print_width_d(intmax_t *d, t_sym *sym)
 {
 	if (sym->sign == 1 && *d >= 0 && !sym->zero && sym->width)
 	{
@@ -75,7 +75,7 @@ void print_width_d(int *d, t_sym *sym)
 		}
 }
 
-void print_precision_d(int *d, t_sym *sym)
+void print_precision_d(intmax_t *d, t_sym *sym)
 {
 	if (*d < 0)
 	{
@@ -89,8 +89,6 @@ void print_precision_d(int *d, t_sym *sym)
             sym->check++;
             sym->precision--;
     	}
-	if (sym->sign == 2 && *d < 0)
-		sym->check--;
 }
 
 void print_plus_d(t_sym *sym)
@@ -98,4 +96,22 @@ void print_plus_d(t_sym *sym)
 	write(1, "+", 1);
 	sym->check++;
 	sym->arg_len--;
+}
+
+intmax_t	cast_int(va_list arg, t_sym *sym)
+{
+	if (sym->size == 3)
+		return (va_arg(arg, long int));
+	else if (sym->size == 1)
+		return ((short)va_arg(arg, int));
+	else if (sym->size == 2)
+		return ((char)va_arg(arg, int));
+	else if (sym->size == 6)
+		return (va_arg(arg, long long int));
+	else if (sym->size == 5)
+		return (va_arg(arg, intmax_t));
+	else if (sym->size == 7)
+		return (va_arg(arg, size_t));
+	else
+		return (va_arg(arg, int));
 }

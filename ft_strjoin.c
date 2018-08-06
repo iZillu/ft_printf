@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_free(char *s1, char *s2, int first, int second)
 {
 	char	*str;
 	int		len;
@@ -34,6 +34,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		while (s2[x] != '\0')
 			str[i++] = s2[x++];
 		str[i] = '\0';
+		if (first)
+			ft_strdel(&s1);
+		if (second)
+			ft_strdel(&s2);
 		return (str);
 	}
 	return (NULL);

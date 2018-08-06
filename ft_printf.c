@@ -31,7 +31,7 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 	if (*format == 'S')
 		sym->bits += print_S(arg, type.S, sym);
 	if (*format == 'D')
-		sym->bits += print_D(arg, &type.D);
+		sym->bits += print_D(arg, &type.D, sym);
 	if (*format == 'o')
 		sym->bits += print_o(arg, &type.o, sym);
 	if (*format == 'O')
@@ -46,7 +46,28 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 		sym->bits += print_X(arg, &type.X, sym);
 }
 
-int	missing_flags(const char *format, t_sym *sym)
+void	checking_sizes(const char *format, t_sym *sym)
+{
+	while (format[sym->i] == 'h' || format[sym->i] == 'l' || format[sym->i] == 'j'
+		|| format[sym->i] == 'z')
+	{
+		if (format[sym->i] == 'h')
+			sym->size += 1;
+		if (format[sym->i] == 'l')
+			sym->size += 3;
+		if (format[sym->i] == 'j')
+			sym->size = 5;
+		if (format[sym->i] == 'z')
+			sym->size = 7;
+		sym->i++;
+	}
+	/* 1 = h   ;   2 = hh
+	// 3 = l   ;   6 = ll
+	// 5 = j   ;   7 = z
+	*/
+}
+
+void	missing_flags(const char *format, t_sym *sym)
 {	
 	while (format[sym->i] == '+' || format[sym->i] == ' ' || format[sym->i] == '-'
 		|| format[sym->i] == '#' || format[sym->i] == '0')
@@ -76,7 +97,6 @@ int	missing_flags(const char *format, t_sym *sym)
 		sym->precision = ft_atoi(ft_precision(format, sym));
 		sym->dot++;
 	}
-	return (0);
 }
 
 int		ft_printf(const char *format, ...)
@@ -94,6 +114,7 @@ int		ft_printf(const char *format, ...)
 		{
 			sym.i++;
 			missing_flags(format, &sym);
+			checking_sizes(format, &sym);
             detect_sign(arg, &format[sym.i++], &sym);
             initializer(&sym);
 			va_end (arg);

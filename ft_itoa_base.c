@@ -39,7 +39,7 @@ char            *ft_itoa_base(uintmax_t num, int base, int upper)
 	else
 		ft_strcpy(tab, "0123456789abcdef");
 	n = counter(num, base);
-	str = malloc(n + 1);
+	str = (char *)malloc(sizeof(char) * (n + 1));
 	i = 1;
 	while (num != 0)
 	{

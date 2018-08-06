@@ -12,15 +12,17 @@
 
 #include "ft_printf.h"
 
-size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
+size_t	print_i_or_d(va_list arg, t_sym *sym, intmax_t *d)
 {	
-	*d = va_arg(arg, int);
+	*d = cast_int(arg, sym);
     sym->save_width = sym->width;
     sym->save_precision = sym->precision;
     sym->arg_len = ft_strlen_int(*d);
     print_space_d(d, sym);
 	if (sym->precision < sym->width && sym->width && sym->precision)
 		sym->width = sym->width - sym->precision + sym->arg_len;
+	if (*d < 0 && sym->width && sym->precision)
+		sym->width--;
 	if (sym->sign == 1 && *d >= 0)
 		sym->arg_len++;
 	print_zero_d(d, sym);
@@ -29,8 +31,6 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, int *d)
     if (sym->sign == 1 && *d >= 0 && !sym->zero)
     	print_plus_d(sym);
     print_precision_d(d, sym);
-	if (sym->sign == 2 && *d < 0)
-		sym->check--;
 	if (sym->dot && !sym->precision && *d == 0 && sym->save_width)
 		write(1, " ", 1);
 	else if (!(sym->dot && !sym->precision && *d == 0))

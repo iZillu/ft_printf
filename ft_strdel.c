@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/22 19:46:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/08/02 15:23:57 by hmuravch         ###   ########.fr       */
+/*   Created: 2018/04/08 01:40:28 by hmuravch          #+#    #+#             */
+/*   Updated: 2018/08/02 14:35:38 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	int i;
+#include "ft_printf.h"
 
-	i = 0;
-	while (src[i] != '\0')
+void	ft_strdel(char **as)
+{
+	if (as)
 	{
-		dst[i] = src[i];
-		i++;
+		free(*as);
+		*as = NULL;
 	}
-	dst[i] = '\0';
-	return (dst);
 }

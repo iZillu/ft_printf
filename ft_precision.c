@@ -44,6 +44,8 @@ size_t	ft_strlen_int(intmax_t num)
 		num *= -1;
 		len++;
 	}
+    if ((num <= 9223372036854775807 && num > 999999999999999999) || num < -9223372036854775807)
+        return (19);
 	if (num == 1 || num == 0)
 		return (1 + len);
 	while (i < num)
@@ -85,5 +87,6 @@ void initializer(t_sym *sym)
 	sym->save_precision = 0;
 	sym->save_arg_len = 0;
 	sym->arg_len = 0;
+	sym->size = 0;
 	sym->precision = 0;
 }

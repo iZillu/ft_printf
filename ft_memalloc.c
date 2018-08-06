@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/22 19:46:32 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/08/02 15:23:57 by hmuravch         ###   ########.fr       */
+/*   Created: 2018/04/04 07:08:52 by hmuravch          #+#    #+#             */
+/*   Updated: 2018/05/23 19:39:18 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	int i;
+#include "ft_printf.h"
 
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
+void	*ft_memalloc(size_t size)
+{
+	void *res;
+
+	if (size == 0)
+		return (0);
+	if (!(res = malloc(size)))
+		return (NULL);
+	ft_bzero(res, size);
+	return (res);
 }
