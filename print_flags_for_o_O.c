@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-void print_zero_o(unsigned int *x, t_sym *sym)
+void print_zero_o(uintmax_t *o, t_sym *sym)
 {
 	if (sym->zero && !sym->precision)
     {
-    	if (sym->sharp == 1 && *x != 0)
+    	if (sym->sharp == 1 && *o != 0)
     	{
     		write(1, "0", 1);
     		sym->check++;
@@ -51,15 +51,15 @@ void print_width_o(t_sym *sym)
 		}
 }
 
-void print_precision_o(unsigned int *x, t_sym *sym)
+void print_precision_o(uintmax_t *o, t_sym *sym)
 {
-	if ((sym->sharp == 1 && sym->precision && *x != 0))
+	if ((sym->sharp == 1 && sym->precision && *o != 0))
 	{
 		write(1, "0", 1);
 		sym->check++;
 		sym->precision--;
 	}
-	if (sym->sharp == 1 && !sym->precision && sym->dot && *x == 0)
+	if (sym->sharp == 1 && !sym->precision && sym->dot && *o == 0)
 	{
 		write(1, "0", 1);
 		sym->check++;

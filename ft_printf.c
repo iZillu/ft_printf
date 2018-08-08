@@ -46,24 +46,36 @@ void		detect_sign(va_list arg, const char *format, t_sym *sym)
 		sym->bits += print_X(arg, &type.X, sym);
 }
 
+#include <string.h>
+
 void	checking_sizes(const char *format, t_sym *sym)
 {
 	while (format[sym->i] == 'h' || format[sym->i] == 'l' || format[sym->i] == 'j'
 		|| format[sym->i] == 'z')
 	{
-		if (format[sym->i] == 'h')
-			sym->size += 1;
-		if (format[sym->i] == 'l')
-			sym->size += 3;
-		if (format[sym->i] == 'j')
+		if (ft_strncmp("hh", &format[sym->i], 2) == 0 && sym->size < 1)
+		{
+			sym->size = 1;
+			sym->i++;
+		}
+		else if (ft_strncmp("ll", &format[sym->i], 2) == 0 && sym->size < 4)
+		{
+			sym->size = 4;
+			sym->i++;
+		}
+		else if (format[sym->i] == 'h' && sym->size < 2)
+			sym->size = 2;
+		else if (format[sym->i] == 'l' && sym->size < 3)
+			sym->size = 3;
+		else if (format[sym->i] == 'j' && sym->size < 5)
 			sym->size = 5;
-		if (format[sym->i] == 'z')
-			sym->size = 7;
+		else if (format[sym->i] == 'z' && sym->size < 6)
+			sym->size = 6;
 		sym->i++;
 	}
-	/* 1 = h   ;   2 = hh
-	// 3 = l   ;   6 = ll
-	// 5 = j   ;   7 = z
+	/* 1 = hh  ;   2 = h
+	// 3 = l   ;   4 = ll
+	// 5 = j   ;   6 = z
 	*/
 }
 

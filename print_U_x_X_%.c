@@ -12,40 +12,23 @@
 
 #include "ft_printf.h"
 
-size_t	print_U(va_list arg, unsigned long long int *U, t_sym *sym)
+size_t	print_U(va_list arg, uintmax_t *U, t_sym *sym)
 {
-	*U = va_arg(arg, unsigned long long int);
-    sym->save_width = sym->width;
-    sym->save_precision = sym->precision;
-    sym->arg_len = ft_strlen_U_int(*U);
-    print_space_u(sym);
-	if (sym->precision < sym->width && sym->width && sym->precision)
-		sym->width = sym->width - sym->precision + sym->arg_len;
-	print_zero_u(sym);
-    if (sym->minus == 0)
-    	print_width_u(sym);
-    print_precision_u(sym);
-	if (sym->dot && !sym->precision && *U == 0 && sym->save_width)
-		write(1, " ", 1);
-	else if (!(sym->dot && !sym->precision && *U == 0))
-		ft_putnbr(*U);
-	else
-		sym->check--;
-	if (sym->minus == 1)
-		print_width_u(sym);
-	return (sym->arg_len + sym->check);
+	if (sym->size < 3)
+		sym->size = 3;
+	return (print_u(arg, U, sym));
 }
 
-size_t	print_x(va_list arg, int *x, t_sym *sym)
+size_t	print_x(va_list arg, intmax_t *x, t_sym *sym)
 {
 	char	*str;
 
-	*x = va_arg(arg, int);
+	*x = cast_uint(arg, sym);
     sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *x != 0)
-		str = ft_strjoin_free("0x", (ft_itoa_base_x(*x , 16, 0)), 0, 0);
+		str = ft_strjoin_free("0x", (ft_itoa_base(*x , 16, 0)), 0, 0);
 	else
-		str = ft_itoa_base_x(*x, 16, 0);
+		str = ft_itoa_base(*x, 16, 0);
 	if (sym->dot && !sym->precision && *x == 0)
 		str = NULL;
 	sym->arg_len = ft_strlen(str);
@@ -65,16 +48,16 @@ size_t	print_x(va_list arg, int *x, t_sym *sym)
 	return (sym->arg_len + sym->check);
 }
 
-size_t	print_X(va_list arg, int *X, t_sym *sym)
+size_t	print_X(va_list arg, intmax_t *X, t_sym *sym)
 {
 	char	*str;
 
-	*X = va_arg(arg, int);
+	*X = cast_uint(arg, sym);
     sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *X != 0)
-		str = ft_strjoin_free("0X", (ft_itoa_base_x(*X , 16, 1)), 0, 0);
+		str = ft_strjoin_free("0X", (ft_itoa_base(*X , 16, 1)), 0, 0);
 	else
-		str = ft_itoa_base_x(*X, 16, 1);
+		str = ft_itoa_base(*X, 16, 1);
 	if (sym->dot && !sym->precision && *X == 0)
 		str = NULL;
 	sym->arg_len = ft_strlen(str);

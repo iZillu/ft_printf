@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void print_zero_x(int *x, t_sym *sym)
+void print_zero_x(intmax_t *x, t_sym *sym)
 {
 	if (sym->zero && !sym->precision)
     {
@@ -50,7 +50,7 @@ void print_width_x(t_sym *sym)
 		}
 }
 
-void print_precision_x(int *x, t_sym *sym)
+void print_precision_x(intmax_t *x, t_sym *sym)
 {
 	if ((sym->sharp == 1 && sym->precision && *x != 0))
 	{
