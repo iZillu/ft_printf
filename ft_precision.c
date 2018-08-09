@@ -48,7 +48,7 @@ size_t	ft_strlen_int(intmax_t num)
         return (19);
 	if (num == 1 || num == 0)
 		return (1 + len);
-	while (i < num)
+	while (i <= num)
 	{
 		i *= 10;
 		len++;
@@ -67,7 +67,7 @@ size_t	ft_strlen_u_int(uintmax_t num)
 		return (1 + len);
 	if (num > 999999999999999999)
         return (20);
-	while (i < num)
+	while (i <= num)
 	{
 		i *= 10;
 		len++;

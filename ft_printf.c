@@ -12,41 +12,43 @@
 
 #include "ft_printf.h"
 
-void		detect_sign(va_list arg, const char *format, t_sym *sym)
+size_t		detect_sign(va_list arg, const char *format, t_sym *sym)
 {
 	t_type	type;
 
 	if (*format == 's')
-		sym->bits += print_s(arg, sym, type.s);
-	if (*format == 'i' || *format == 'd')
-		sym->bits += print_i_or_d(arg, sym, &type.d);
-	if (*format == '%')
-		sym->bits += print_percent(sym);
-	if (*format == 'p')
-		sym->bits += print_p(arg, &type.p, sym);
-	if (*format == 'C')
-		sym->bits += print_C(arg, &type.C, sym);
-	if (*format == 'c')
-		sym->bits += print_c(arg, &type.c, sym);
-	if (*format == 'S')
-		sym->bits += print_S(arg, type.S, sym);
-	if (*format == 'D')
-		sym->bits += print_D(arg, &type.D, sym);
-	if (*format == 'o')
-		sym->bits += print_o(arg, &type.o, sym);
-	if (*format == 'O')
-		sym->bits += print_O(arg, &type.O, sym);
-	if (*format == 'u')
-		sym->bits += print_u(arg, &type.u, sym);
-	if (*format == 'U')
-		sym->bits += print_U(arg, &type.U, sym);
-	if (*format == 'x')
-		sym->bits += print_x(arg, &type.x, sym);
-	if (*format == 'X')
-		sym->bits += print_X(arg, &type.X, sym);
+		return (sym->bits += print_s(arg, sym, type.s));
+	else if (*format == 'i' || *format == 'd')
+		return (sym->bits += print_i_or_d(arg, sym, &type.d));
+	else if (*format == '%')
+		return (sym->bits += print_percent(sym));
+	else if (*format == 'p')
+		return (sym->bits += print_p(arg, &type.p, sym));
+	else if (*format == 'C')
+		return (sym->bits += print_C(arg, &type.C, sym));
+	else if (*format == 'c')
+		return (sym->bits += print_c(arg, &type.c, sym));
+	else if (*format == 'S')
+		return (sym->bits += print_S(arg, type.S, sym));
+	else if (*format == 'D')
+		return (sym->bits += print_D(arg, &type.D, sym));
+	else if (*format == 'o')
+		return (sym->bits += print_o(arg, &type.o, sym));
+	else if (*format == 'O')
+		return (sym->bits += print_O(arg, &type.O, sym));
+	else if (*format == 'u')
+		return (sym->bits += print_u(arg, &type.u, sym));
+	else if (*format == 'U')
+		return (sym->bits += print_U(arg, &type.U, sym));
+	else if (*format == 'x')
+		return (sym->bits += print_x(arg, &type.x, sym));
+	else if (*format == 'X')
+		return (sym->bits += print_X(arg, &type.X, sym));
+	else
+		return (0);
 }
 
-#include <string.h>
+// придумать что-то с ретёрном в детект сайне, нужно не сдвигать итератор если никакого знака не было
 
 void	checking_sizes(const char *format, t_sym *sym)
 {
@@ -125,9 +127,12 @@ int		ft_printf(const char *format, ...)
 		while(format[sym.i] == '%')
 		{
 			sym.i++;
+			if (format[sym.i] == '\0')
+				break ;
 			missing_flags(format, &sym);
 			checking_sizes(format, &sym);
-            detect_sign(arg, &format[sym.i++], &sym);
+            if (detect_sign(arg, &format[sym.i], &sym))
+            	sym.i++;
             initializer(&sym);
 			va_end (arg);
 		}
