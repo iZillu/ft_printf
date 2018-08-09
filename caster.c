@@ -39,7 +39,7 @@ intmax_t	cast_uint(va_list arg, t_sym *sym)
 	else if (sym->size == 3)
 		return (va_arg(arg,unsigned long int));
 	else if (sym->size == 4)
-		return (va_arg(arg,unsigned long long int));
+		return (va_arg(arg, uintmax_t));
 	else if (sym->size == 5)
 		return (va_arg(arg, uintmax_t));
 	else if (sym->size == 6)
