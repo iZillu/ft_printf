@@ -82,7 +82,7 @@ size_t	print_u(va_list arg, uintmax_t *u, t_sym *sym)
 	*u = cast_uint(arg, sym);
     sym->save_width = sym->width;
     sym->save_precision = sym->precision;
-    sym->arg_len = ft_strlen_int(*u);
+    sym->arg_len = ft_strlen_u_int(*u);
     print_space_u(sym);
 	if (sym->precision < sym->width && sym->width && sym->precision)
 		sym->width = sym->width - sym->precision + sym->arg_len;
@@ -93,7 +93,7 @@ size_t	print_u(va_list arg, uintmax_t *u, t_sym *sym)
 	if (sym->dot && !sym->precision && *u == 0 && sym->save_width)
 		write(1, " ", 1);
 	else if (!(sym->dot && !sym->precision && *u == 0))
-		ft_putnbr(*u);
+		ft_putnbr_u(*u);
 	else
 		sym->check--;
 	if (sym->minus == 1)

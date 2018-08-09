@@ -30,3 +30,11 @@ void	ft_putnbr(intmax_t n)
 		ft_putchar((n % 10) + '0');
 	}
 }
+
+void	ft_putnbr_u(uintmax_t n)
+{
+	if (n >= 10)
+		ft_putnbr(n / 10);
+	ft_putchar((n % 10) + '0');
+}
+
