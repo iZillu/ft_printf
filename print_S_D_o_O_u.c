@@ -15,12 +15,24 @@
 size_t	print_S(va_list arg, wchar_t *S, t_sym *sym)
 {
 	char	*u_code;
+	char	*tmp;
+	char	*tmp2;
 
 	S = va_arg(arg, wchar_t *);
 	u_code = ft_strnew(0);
 	if (S)
 		while (*S)
-			u_code = ft_strjoin_free(u_code, ft_putchar_unicode(*S++, sym), 1, 1);
+		{
+			tmp = ft_strdup(u_code);
+			tmp2 = ft_putchar_unicode(*S++, sym);
+			ft_strdel(&u_code);
+			u_code = ft_strjoin_free(tmp, tmp2, 1, 1);
+		}
+	else
+	{
+		u_code = "(null)";
+		sym->arg_len = 6;
+	}
 	if (!sym->minus)
 		while (sym->width-- > sym->arg_len)
 		{

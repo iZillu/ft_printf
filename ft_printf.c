@@ -17,38 +17,39 @@ size_t		detect_sign(va_list arg, const char *format, t_sym *sym)
 	t_type	type;
 
 	if (*format == 's')
-		return (sym->bits += print_s(arg, sym, type.s));
+		return (print_s(arg, sym, type.s));
 	else if (*format == 'i' || *format == 'd')
-		return (sym->bits += print_i_or_d(arg, sym, &type.d));
+		return (print_i_or_d(arg, sym, &type.d));
 	else if (*format == '%')
-		return (sym->bits += print_percent(sym));
+		return (print_percent(sym));
 	else if (*format == 'p')
-		return (sym->bits += print_p(arg, &type.p, sym));
+		return (print_p(arg, &type.p, sym));
 	else if (*format == 'C')
-		return (sym->bits += print_C(arg, &type.C, sym));
+		return (print_C(arg, &type.C, sym));
 	else if (*format == 'c')
-		return (sym->bits += print_c(arg, &type.c, sym));
+		return (print_c(arg, &type.c, sym));
 	else if (*format == 'S')
-		return (sym->bits += print_S(arg, type.S, sym));
+		return (print_S(arg, type.S, sym));
 	else if (*format == 'D')
-		return (sym->bits += print_D(arg, &type.D, sym));
+		return (print_D(arg, &type.D, sym));
 	else if (*format == 'o')
-		return (sym->bits += print_o(arg, &type.o, sym));
+		return (print_o(arg, &type.o, sym));
 	else if (*format == 'O')
-		return (sym->bits += print_O(arg, &type.O, sym));
+		return (print_O(arg, &type.O, sym));
 	else if (*format == 'u')
-		return (sym->bits += print_u(arg, &type.u, sym));
+		return (print_u(arg, &type.u, sym));
 	else if (*format == 'U')
-		return (sym->bits += print_U(arg, &type.U, sym));
+		return (print_U(arg, &type.U, sym));
 	else if (*format == 'x')
-		return (sym->bits += print_x(arg, &type.x, sym));
+		return (print_x(arg, &type.x, sym));
 	else if (*format == 'X')
-		return (sym->bits += print_X(arg, &type.X, sym));
+		return (print_X(arg, &type.X, sym));
 	else
-		return (0);
+		return (--sym->crutch);
 }
 
-// придумать что-то с ретёрном в детект сайне, нужно не сдвигать итератор если никакого знака не было
+// придумать что-то с ретёрном в детект сайне, нужно не сдвигать
+// итератор если никакого знака не было
 
 void	checking_sizes(const char *format, t_sym *sym)
 {
@@ -124,15 +125,16 @@ int		ft_printf(const char *format, ...)
 	va_start(arg, format);
 	while (format[++sym.i] != '\0')
 	{
-		while(format[sym.i] == '%')
+		while (format[sym.i] == '%')
 		{
 			sym.i++;
 			if (format[sym.i] == '\0')
 				break ;
 			missing_flags(format, &sym);
 			checking_sizes(format, &sym);
-            if (detect_sign(arg, &format[sym.i], &sym))
-            	sym.i++;
+            sym.bits += detect_sign(arg, &format[sym.i++], &sym);
+            if (!sym.crutch)
+            	sym.i--;
             initializer(&sym);
 			va_end (arg);
 		}

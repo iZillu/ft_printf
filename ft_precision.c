@@ -93,4 +93,5 @@ void initializer(t_sym *sym)
 	sym->arg_len = 0;
 	sym->size = 0;
 	sym->precision = 0;
+	sym->crutch = 1;
 }

@@ -51,6 +51,7 @@ typedef	struct			s_sym
 	int 				size;
 	int 				dot;
 	int 				check;
+	size_t				crutch;
 	size_t				width;
 	size_t 				save_width;
 	size_t 				save_precision;
