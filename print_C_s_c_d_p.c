@@ -48,7 +48,7 @@ size_t	print_s(va_list arg, t_sym *sym, char *s)
 	if (!s)
 		s = "(null)";
 	sym->arg_len = ft_strlen(s);
-	if (sym->precision < sym->arg_len && sym->precision)
+	if (sym->precision < sym->arg_len && sym->dot)
 		sym->arg_len = sym->precision;
 	sym->save_arg_len = sym->arg_len;
     if (sym->minus == 0)
@@ -84,7 +84,8 @@ size_t	print_p(va_list arg, void *p, t_sym *sym)
 			sym->check++;
 		}
 	write(1, "0x", 2);
-	ft_putstr(str);
+	if (!(p == NULL && sym->dot))
+		ft_putstr(str);
 	if (sym->minus)
 		while (sym->width-- > sym->arg_len)
 		{

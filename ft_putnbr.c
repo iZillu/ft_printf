@@ -16,8 +16,6 @@ void	ft_putnbr(intmax_t n)
 {
 	if (n == MIN_INT)
 		ft_putstr("9223372036854775808");
-	else if (n == -2147483648)
-		ft_putstr("2147483648");
 	else
 	{
 		if (n < 0)

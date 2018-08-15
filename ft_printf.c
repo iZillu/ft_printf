@@ -17,17 +17,25 @@ size_t		detect_sign(va_list arg, const char *format, t_sym *sym)
 	t_type	type;
 
 	if (*format == 's')
+	{
+		if (sym->size == 3)
+			return (print_S(arg, type.S, sym));	
 		return (print_s(arg, sym, type.s));
+	}
 	else if (*format == 'i' || *format == 'd')
 		return (print_i_or_d(arg, sym, &type.d));
 	else if (*format == '%')
 		return (print_percent(sym));
 	else if (*format == 'p')
 		return (print_p(arg, &type.p, sym));
+	else if (*format == 'c')
+	{
+		if (sym->size == 3)
+			return (print_C(arg, &type.C, sym));
+		return (print_c(arg, &type.c, sym));
+	}
 	else if (*format == 'C')
 		return (print_C(arg, &type.C, sym));
-	else if (*format == 'c')
-		return (print_c(arg, &type.c, sym));
 	else if (*format == 'S')
 		return (print_S(arg, type.S, sym));
 	else if (*format == 'D')

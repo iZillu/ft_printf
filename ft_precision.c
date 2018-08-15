@@ -35,10 +35,8 @@ size_t	ft_strlen_int(intmax_t num)
 	size_t		len;
 	intmax_t 	i;
 
-	i = 1;
+	i = 10;
 	len = 0;
-	if (num == -2147483648)
-		return (10);
 	if (num < 0)
 	{
 		num *= -1;
@@ -48,9 +46,9 @@ size_t	ft_strlen_int(intmax_t num)
         return (19);
 	if (num == 1 || num == 0)
 		return (1 + len);
-	while (i <= num)
+	while (num > 0)
 	{
-		i *= 10;
+		num /= i;
 		len++;
 	}
 	return (len);
@@ -61,21 +59,17 @@ size_t	ft_strlen_u_int(uintmax_t num)
 	size_t		len;
 	uintmax_t	i;
 
-	i = 1;
+	i = 10;
 	len = 0;
 	if (num == 1 || num == 0)
 		return (1 + len);
-	if (num > 999999999999999999)
-        return (20);
-	while (i <= num)
+	while (num > 0)
 	{
-		i *= 10;
+		num /= i;
 		len++;
 	}
 	return (len);
 }
-
-// 18446744073709551481
 
 void initializer(t_sym *sym)
 {
@@ -94,4 +88,6 @@ void initializer(t_sym *sym)
 	sym->size = 0;
 	sym->precision = 0;
 	sym->crutch = 1;
+	sym->tmp = NULL;
+	sym->tmp2 = NULL;
 }

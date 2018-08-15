@@ -41,6 +41,8 @@ typedef	struct			s_type
 
 typedef	struct			s_sym
 {
+	char				*tmp;
+	char				*tmp2;
 	int 				i;
 	int 				sign;
 	size_t				bits;
