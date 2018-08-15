@@ -19,8 +19,6 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, intmax_t *d)
     sym->save_precision = sym->precision;
     sym->arg_len = ft_strlen_int(*d);
     print_space_d(d, sym);
-	if (sym->precision < sym->width && sym->width && sym->precision)
-		sym->width = sym->width - sym->precision + sym->arg_len;
 	if (*d < 0 && sym->width && sym->precision)
 		sym->width--;
 	if (sym->sign == 1 && *d >= 0)
@@ -86,6 +84,7 @@ size_t	print_p(va_list arg, void *p, t_sym *sym)
 	write(1, "0x", 2);
 	if (!(p == NULL && sym->dot))
 		ft_putstr(str);
+	ft_strdel(&str);
 	if (sym->minus)
 		while (sym->width-- > sym->arg_len)
 		{
@@ -109,6 +108,7 @@ size_t	print_C(va_list arg, wint_t *C, t_sym *sym)
 			sym->check++;
 		}
 	ft_putstr(u_code);
+	syste("leaks -q out");
 	if (sym->minus)
 		while (sym->width-- > sym->arg_len)
 		{

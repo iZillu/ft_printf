@@ -31,19 +31,10 @@ size_t	print_S(va_list arg, wchar_t *S, t_sym *sym)
 		u_code = "(null)";
 		sym->arg_len = 6;
 	}
-	if (!sym->minus)
-		while (sym->width-- > sym->arg_len)
-		{
-			write(1, " ", 1);
-			sym->check++;
-		}
+	print_width_not_minus_S(sym);
 	ft_putstr(u_code);
-	if (sym->minus)
-		while (sym->width-- > sym->arg_len)
-		{
-			write(1, " ", 1);
-			sym->check++;
-		}
+	ft_strdel(&u_code);
+	print_width_yes_minus_S(sym);
 	return (sym->arg_len + sym->check);
 }
 

@@ -12,52 +12,28 @@
 
 #include "ft_printf.h"
 
-size_t		detect_sign(va_list arg, const char *format, t_sym *sym)
+void		detect_sign(va_list arg, const char *format, t_sym *sym)
 {
 	t_type	type;
 
 	if (*format == 's')
-	{
-		if (sym->size == 3)
-			return (print_S(arg, type.S, sym));	
-		return (print_s(arg, sym, type.s));
-	}
-	else if (*format == 'i' || *format == 'd')
-		return (print_i_or_d(arg, sym, &type.d));
-	else if (*format == '%')
-		return (print_percent(sym));
-	else if (*format == 'p')
-		return (print_p(arg, &type.p, sym));
+		sym->size == 3 ? (sym->bits += print_S(arg, type.S, sym)) : (sym->bits += print_s(arg, sym, type.s));
 	else if (*format == 'c')
-	{
-		if (sym->size == 3)
-			return (print_C(arg, &type.C, sym));
-		return (print_c(arg, &type.c, sym));
-	}
-	else if (*format == 'C')
-		return (print_C(arg, &type.C, sym));
-	else if (*format == 'S')
-		return (print_S(arg, type.S, sym));
-	else if (*format == 'D')
-		return (print_D(arg, &type.D, sym));
-	else if (*format == 'o')
-		return (print_o(arg, &type.o, sym));
-	else if (*format == 'O')
-		return (print_O(arg, &type.O, sym));
-	else if (*format == 'u')
-		return (print_u(arg, &type.u, sym));
-	else if (*format == 'U')
-		return (print_U(arg, &type.U, sym));
-	else if (*format == 'x')
-		return (print_x(arg, &type.x, sym));
-	else if (*format == 'X')
-		return (print_X(arg, &type.X, sym));
-	else
-		return (--sym->crutch);
+		sym->size == 3 ? (sym->bits += print_C(arg, &type.C, sym)) : (sym->bits += print_c(arg, &type.c, sym));
+	else (*format == 'i' || *format == 'd') ? sym->bits += print_i_or_d(arg, sym, &type.d)
+	: *format == 'p' ? sym->bits += print_p(arg, &type.p, sym)
+	: *format == '%' ? sym->bits += print_percent(sym)
+	: *format == 'C' ? sym->bits += print_C(arg, &type.C, sym)
+	: *format == 'S' ? sym->bits += print_S(arg, type.S, sym)
+	: *format == 'D' ? sym->bits += print_D(arg, &type.D, sym)
+	: *format == 'o' ? sym->bits += print_o(arg, &type.o, sym)
+	: *format == 'O' ? sym->bits += print_O(arg, &type.O, sym)
+	: *format == 'u' ? sym->bits += print_u(arg, &type.u, sym)
+	: *format == 'U' ? sym->bits += print_U(arg, &type.U, sym)
+	: *format == 'x' ? sym->bits += print_x(arg, &type.x, sym)
+	: *format == 'X' ? sym->bits += print_X(arg, &type.X, sym)
+	: --sym->crutch;
 }
-
-// придумать что-то с ретёрном в детект сайне, нужно не сдвигать
-// итератор если никакого знака не было
 
 void	checking_sizes(const char *format, t_sym *sym)
 {
@@ -90,6 +66,24 @@ void	checking_sizes(const char *format, t_sym *sym)
 	*/
 }
 
+char	*ft_precision(const char *format, t_sym *sym)
+{
+	char	*str;
+	int		len;
+	int		num;
+
+	num = 0;
+	len = 0;
+	while (format[++sym->i] >= '0' && format[sym->i] <= '9')
+		len++;
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	str[len] = '\0';
+	sym->i -= len;
+	while (len--)
+		str[num++] = format[sym->i++];
+	return (str);
+}
+
 void	missing_flags(const char *format, t_sym *sym)
 {	
 	while (format[sym->i] == '+' || format[sym->i] == ' ' || format[sym->i] == '-'
@@ -108,8 +102,7 @@ void	missing_flags(const char *format, t_sym *sym)
 			sym->zero = 1;
 		sym->i += 1;
 	}
-	if (sym->minus == 1)
-		sym->zero = 0;
+	sym->minus ? sym->zero = 0 : 0;
 	if (format[sym->i] >= '0' && format[sym->i] <= '9')
 	{
 		sym->i--;
@@ -140,10 +133,11 @@ int		ft_printf(const char *format, ...)
 				break ;
 			missing_flags(format, &sym);
 			checking_sizes(format, &sym);
-            sym.bits += detect_sign(arg, &format[sym.i++], &sym);
+            detect_sign(arg, &format[sym.i++], &sym);
             if (!sym.crutch)
             	sym.i--;
             initializer(&sym);
+            system("leaks -q a.out");
 			va_end (arg);
 		}
 		if (format[sym.i] == '\0')

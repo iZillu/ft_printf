@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/08/06 18:20:45 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/08/15 10:43:23 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC =	ft_printf.c \
 		ft_strlen.c \
 		ft_atoi.c \
 		ft_putnbr.c \
-		ft_strjoin.c \
+		ft_strjoin_free.c \
 		ft_itoa.c \
 		ft_bzero.c \
 		ft_memalloc.c \
@@ -34,16 +34,18 @@ SRC =	ft_printf.c \
 		ft_strdup.c \
 		ft_strcpy.c \
 		ft_strncmp.c \
-		ft_putchar_unicode.c \
-		print_flags_for_d_i.c \
-		print_flags_for_x_X.c \
-		print_flags_for_u_U.c \
-		print_flags_for_o_O.c \
+		ft_strlen_int.c \
+		my_caster.c \
+		my_putchar_unicode.c \
+		print_flags_for_i.c \
+		print_flags_for_x.c \
+		print_flags_for_u.c \
+		print_flags_for_o.c \
+		print_flags_for_S.c \
 		print_S_D_o_O_u.c \
 		print_C_s_c_d_p.c \
 		print_U_x_X_%.c \
-		ft_precision.c \
-		caster.c
+
 
 OBJ = $(SRC:.c=.o)
 
