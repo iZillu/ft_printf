@@ -18,25 +18,25 @@ char	*kostil(wchar_t c, int len, char *ch, t_sym *sym)
 	{
 		sym->arg_len += 2;
 		ch[0] = 224 | (c >> 12);
-		ch[1] =	(63 & (c >> 6)) | 128;
+		ch[1] = (63 & (c >> 6)) | 128;
 		ch[2] = (63 & c) | 128;
 	}
-	else 
+	else
 	{
 		sym->arg_len += 3;
 		ch[0] = 240 | (c >> 18);
 		ch[1] = 128 | (c >> 12 & 63);
-		ch[2] =	(63 & (c >> 6)) | 128;
-		ch[3] = (63 & c) | 128;	
+		ch[2] = (63 & (c >> 6)) | 128;
+		ch[3] = (63 & c) | 128;
 	}
 	return (ch);
 }
 
 char	*ft_putchar_unicode(wchar_t c, t_sym *sym)
 {
-	char 	*ch;
+	char	*ch;
 	int		len;
-	char 	*tmp;
+	char	*tmp;
 
 	sym->arg_len += 1;
 	tmp = ft_itoa_base((unsigned long long)c, 2, 0);
@@ -52,7 +52,6 @@ char	*ft_putchar_unicode(wchar_t c, t_sym *sym)
 	}
 	else
 		kostil(c, len, ch, sym);
-	// system("leaks -q a.out");
-	ft_strdel(&tmp); 
+	ft_strdel(&tmp);
 	return (ch);
 }

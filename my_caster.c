@@ -37,7 +37,7 @@ intmax_t	cast_uint(va_list arg, t_sym *sym)
 	else if (sym->size == 2)
 		return ((unsigned short)va_arg(arg, int));
 	else if (sym->size == 3)
-		return (va_arg(arg,unsigned long int));
+		return (va_arg(arg, unsigned long int));
 	else if (sym->size == 4)
 		return (va_arg(arg, uintmax_t));
 	else if (sym->size == 5)
@@ -48,7 +48,7 @@ intmax_t	cast_uint(va_list arg, t_sym *sym)
 		return (va_arg(arg, unsigned int));
 }
 
-void initializer(t_sym *sym)
+void		initializer(t_sym *sym)
 {
 	sym->sign = 0;
 	sym->len = 0;

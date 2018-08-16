@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/08/15 10:43:23 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/08/16 07:35:49 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,10 @@ SRC =	ft_printf.c \
 		print_flags_for_x.c \
 		print_flags_for_u.c \
 		print_flags_for_o.c \
-		print_flags_for_S.c \
-		print_S_D_o_O_u.c \
-		print_C_s_c_d_p.c \
-		print_U_x_X_%.c \
+		print_flags_for_cap_s.c \
+		print_s_o.c \
+		print_d_c_p.c \
+		print_percent_u_x.c \
 
 
 OBJ = $(SRC:.c=.o)

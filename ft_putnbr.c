@@ -35,4 +35,3 @@ void	ft_putnbr_u(uintmax_t n)
 		ft_putnbr(n / 10);
 	ft_putchar((n % 10) + '0');
 }
-

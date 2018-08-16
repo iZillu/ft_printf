@@ -6,7 +6,7 @@
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 18:28:06 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/07/28 05:11:00 by hmuravch         ###   ########.fr       */
+/*   Updated: 2018/08/16 07:36:47 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static size_t	kostil(int i, size_t nmbr, int minus, const char *str)
 	return (nmbr);
 }
 
-size_t		ft_atoi(const char *str)
+size_t			ft_atoi(const char *str)
 {
-	int			i;
-	size_t		nmbr;
-	int			minus;
+	int		i;
+	size_t	nmbr;
+	int		minus;
 
 	i = 0;
 	nmbr = 0;

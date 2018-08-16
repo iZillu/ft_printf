@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static int      counter(uintmax_t num, int base)
+static int	counter(uintmax_t num, int base)
 {
 	int ret;
 
@@ -25,12 +25,12 @@ static int      counter(uintmax_t num, int base)
 	return (ret);
 }
 
-char            *ft_itoa_base(uintmax_t num, int base, int upper)
+char		*ft_itoa_base(uintmax_t num, int base, int upper)
 {
-	char		*str;
-	int			n;
-	int			i;
-	char		tab[17];
+	char	*str;
+	int		n;
+	int		i;
+	char	tab[17];
 
 	if (num == 0)
 		return (ft_strdup("0"));

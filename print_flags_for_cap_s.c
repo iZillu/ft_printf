@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   print_flags_for_S.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/03 22:28:48 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/08/16 03:21:03 by hmuravch         ###   ########.fr       */
+/*   Created: 2018/08/15 10:42:25 by hmuravch          #+#    #+#             */
+/*   Updated: 2018/08/15 10:43:03 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(char const *s)
+void	print_width_not_minus_cap_s(t_sym *sym)
 {
-	int i;
+	if (!sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
+}
 
-	i = ft_strlen(s);
-	write(1, s, i);
+void	print_width_yes_minus_cap_s(t_sym *sym)
+{
+	if (sym->minus)
+		while (sym->width-- > sym->arg_len)
+		{
+			write(1, " ", 1);
+			sym->check++;
+		}
 }
