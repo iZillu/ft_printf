@@ -106,7 +106,7 @@ void	missing_flags(const char *format, t_sym *sym)
 		sym->i++;
 	}
 	sym->minus ? sym->zero = 0 : 0;
-	if (format[sym->i] >= '0' && format[sym->i] <= '9' && --sym->i)
+	if (format[sym->i] >= '0' && format[sym->i] <= '9' && sym->i--)
 		sym->width = ft_atoi(ft_precision(format, sym));
 	if (format[sym->i] == '.' && ++sym->dot)
 		sym->precision = ft_atoi(ft_precision(format, sym));
