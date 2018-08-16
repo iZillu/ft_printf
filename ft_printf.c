@@ -88,6 +88,8 @@ char	*ft_precision(const char *format, t_sym *sym)
 
 void	missing_flags(const char *format, t_sym *sym)
 {
+	char *tmp;
+
 	while (format[sym->i] == '+'
 		|| format[sym->i] == ' ' || format[sym->i] == '-'
 		|| format[sym->i] == '#' || format[sym->i] == '0')
@@ -107,9 +109,17 @@ void	missing_flags(const char *format, t_sym *sym)
 	}
 	sym->minus ? sym->zero = 0 : 0;
 	if (format[sym->i] >= '0' && format[sym->i] <= '9' && sym->i--)
-		sym->width = ft_atoi(ft_precision(format, sym));
+	{
+		tmp = ft_precision(format, sym);
+		sym->width = ft_atoi(tmp);
+		ft_strdel(&tmp);
+	}
 	if (format[sym->i] == '.' && ++sym->dot)
-		sym->precision = ft_atoi(ft_precision(format, sym));
+	{
+		tmp = ft_precision(format, sym);
+		sym->precision = ft_atoi(tmp);
+		ft_strdel(&tmp);
+	}
 }
 
 int		ft_printf(const char *format, ...)

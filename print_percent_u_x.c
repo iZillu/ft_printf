@@ -45,17 +45,15 @@ size_t	print_cap_u(va_list arg, uintmax_t *cap_u, t_sym *sym)
 
 size_t	print_x(va_list arg, intmax_t *x, t_sym *sym)
 {
-	char	*str;
-
 	*x = cast_uint(arg, sym);
 	sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *x != 0)
-		str = ft_strjoin_free("0x", (ft_itoa_base(*x, 16, 0)), 0, 0);
+		sym->tmp = ft_strjoin_free("0x", (ft_itoa_base(*x, 16, 0)), 0, 0);
 	else
-		str = ft_itoa_base(*x, 16, 0);
+		sym->tmp = ft_itoa_base(*x, 16, 0);
 	if (sym->dot && !sym->precision && *x == 0)
-		str = NULL;
-	sym->arg_len = ft_strlen(str);
+		sym->tmp = NULL;
+	sym->arg_len = ft_strlen(sym->tmp);
 	if (((sym->sharp == 1 && sym->precision) || (sym->sharp == 1 && sym->zero))
 		&& sym->width)
 		sym->width -= 2;
@@ -66,7 +64,8 @@ size_t	print_x(va_list arg, intmax_t *x, t_sym *sym)
 	if (sym->minus == 0)
 		print_width_x(sym);
 	print_precision_x(x, sym);
-	ft_putstr(str);
+	ft_putstr(sym->tmp);
+	ft_strdel(&sym->tmp);
 	if (sym->minus == 1)
 		print_width_x(sym);
 	return (sym->arg_len + sym->check);
@@ -74,17 +73,15 @@ size_t	print_x(va_list arg, intmax_t *x, t_sym *sym)
 
 size_t	print_cap_x(va_list arg, intmax_t *cap_x, t_sym *sym)
 {
-	char	*str;
-
 	*cap_x = cast_uint(arg, sym);
 	sym->save_precision = sym->precision;
 	if (sym->sharp == 1 && !sym->precision && !sym->zero && *cap_x != 0)
-		str = ft_strjoin_free("0X", (ft_itoa_base(*cap_x, 16, 1)), 0, 0);
+		sym->tmp = ft_strjoin_free("0X", (ft_itoa_base(*cap_x, 16, 1)), 0, 1);
 	else
-		str = ft_itoa_base(*cap_x, 16, 1);
+		sym->tmp = ft_itoa_base(*cap_x, 16, 1);
 	if (sym->dot && !sym->precision && *cap_x == 0)
-		str = NULL;
-	sym->arg_len = ft_strlen(str);
+		sym->tmp = NULL;
+	sym->arg_len = ft_strlen(sym->tmp);
 	if (((sym->sharp == 1 && sym->precision) || (sym->sharp == 1 && sym->zero))
 		&& sym->width)
 		sym->width -= 2;
@@ -95,7 +92,8 @@ size_t	print_cap_x(va_list arg, intmax_t *cap_x, t_sym *sym)
 	if (sym->minus == 0)
 		print_width_x(sym);
 	print_precision_x(cap_x, sym);
-	ft_putstr(str);
+	ft_putstr(sym->tmp);
+	ft_strdel(&sym->tmp);
 	if (sym->minus == 1)
 		print_width_x(sym);
 	return (sym->arg_len + sym->check);

@@ -82,6 +82,7 @@ size_t	print_cap_c(va_list arg, wint_t *cap_c, t_sym *sym)
 			sym->check++;
 		}
 	ft_putstr(u_code);
+	ft_strdel(&u_code);
 	if (sym->minus)
 		while (sym->width-- > sym->arg_len)
 		{

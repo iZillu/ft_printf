@@ -87,6 +87,7 @@ size_t	print_o(va_list arg, uintmax_t *o, t_sym *sym)
 		print_width_o(sym);
 	print_precision_o(o, sym);
 	ft_putstr(str);
+	ft_strdel(&str);
 	if (sym->minus == 1)
 		print_width_o(sym);
 	return (sym->arg_len + sym->check);
