@@ -17,7 +17,10 @@ void	print_space_d(intmax_t *d, t_sym *sym)
 	if (*d >= 0 && sym->sign == 2)
 	{
 		write(1, " ", 1);
-		sym->width--;
+		if (sym->width)
+			sym->width--;
+		if (sym->save_width)
+			sym->save_width--;
 		sym->check++;
 	}
 	if (sym->precision < sym->width && sym->width && sym->precision)
