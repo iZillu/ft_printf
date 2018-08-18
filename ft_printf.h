@@ -19,7 +19,6 @@
 # include <wchar.h>
 # include <stdio.h>
 
-# define PROTECT(x) if (!x) return (-1)
 # define MIN_INT	-9223372036854775807 - 1
 
 typedef	struct		s_type
@@ -74,13 +73,14 @@ char				*ft_putchar_unicode(wchar_t c, t_sym *sym);
 char				*ft_precision(const char *format, t_sym *sym);
 char				*ft_itoa_base(uintmax_t num, int base, int upper);
 char				*ft_strjoin_free(char *s1, char *s2, int first, int second);
+char				*ft_take_number(const char *format, t_sym *sym);
+void				*ft_memalloc(size_t size);
 void				ft_putchar(char c);
 void				ft_strdel(char **as);
 void				ft_putnbr(intmax_t n);
 void				initializer(t_sym *sym);
 void				ft_putnbr_u(uintmax_t n);
 void				ft_putstr(char const *s);
-void				*ft_memalloc(size_t size);
 void				ft_bzero(void *s, size_t n);
 size_t				ft_strlen(const char *s);
 size_t				ft_atoi(const char *str);
@@ -100,6 +100,9 @@ size_t				print_cap_u(va_list arg, uintmax_t *cap_u, t_sym *sym);
 size_t				print_x(va_list arg, intmax_t *x, t_sym *sym);
 size_t				print_cap_x(va_list arg, intmax_t *cap_x, t_sym *sym);
 size_t				print_percent(t_sym *sym);
+void				missing_width_and_precision(const char *format, t_sym *sym);
+void				missing_flags(const char *format, t_sym *sym);
+void				checking_sizes(const char *format, t_sym *sym);
 void				print_plus_d(t_sym *sym);
 void				print_width_d(intmax_t *d, t_sym *sym);
 void				print_space_d(intmax_t *d, t_sym *sym);

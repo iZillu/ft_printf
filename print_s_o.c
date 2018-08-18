@@ -61,7 +61,8 @@ size_t	print_cap_s(va_list arg, wchar_t *cap_s, t_sym *sym)
 	}
 	print_width_not_minus_cap_s(sym);
 	ft_putstr(u_code);
-	ft_strdel(&u_code);
+	if (cap_s)
+		ft_strdel(&u_code);
 	print_width_yes_minus_cap_s(sym);
 	return (sym->arg_len + sym->check);
 }

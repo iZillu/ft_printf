@@ -21,8 +21,6 @@ size_t	print_i_or_d(va_list arg, t_sym *sym, intmax_t *d)
 	print_space_d(d, sym);
 	if (*d < 0 && sym->width && sym->precision)
 		sym->width--;
-	if (sym->sign == 1 && *d >= 0)
-		sym->arg_len++;
 	print_zero_d(d, sym);
 	if (sym->minus == 0)
 		print_width_d(d, sym);

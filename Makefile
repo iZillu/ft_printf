@@ -6,7 +6,7 @@
 #    By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/24 05:04:27 by hmuravch          #+#    #+#              #
-#    Updated: 2018/08/16 07:35:49 by hmuravch         ###   ########.fr        #
+#    Updated: 2018/08/18 17:41:14 by hmuravch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =	ft_printf.c \
 		ft_strlen_int.c \
 		my_caster.c \
 		my_putchar_unicode.c \
+		my_missing_options.c \
 		print_flags_for_i.c \
 		print_flags_for_x.c \
 		print_flags_for_u.c \

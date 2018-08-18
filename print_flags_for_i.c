@@ -6,7 +6,7 @@
 /*   By: hmuravch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/29 23:20:33 by hmuravch          #+#    #+#             */
-/*   Updated: 2018/08/15 10:41:29 by hmuravch         ###   ########.fr       */
+/*   Updated: 2018/08/18 17:06:30 by hmuravch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	print_space_d(intmax_t *d, t_sym *sym)
 			sym->save_width--;
 		sym->check++;
 	}
+	if (sym->sign == 1 && *d >= 0)
+		sym->arg_len++;
 	if (sym->precision < sym->width && sym->width && sym->precision)
 		sym->width = sym->width - sym->precision + sym->arg_len;
 }
@@ -50,7 +52,9 @@ void	print_zero_d(intmax_t *d, t_sym *sym)
 
 void	print_width_d(intmax_t *d, t_sym *sym)
 {
-	if (sym->sign == 1 && *d >= 0 && !sym->zero && sym->width)
+	sym->sign == 1 && *d >= 0 && sym->minus ? sym->check-- : 0;
+	sym->sign == 1 && *d >= 0 && sym->minus ? sym->arg_len++ : 0;
+	if (sym->sign == 1 && *d >= 0 && !sym->zero && sym->width && sym->precision)
 	{
 		sym->width--;
 		sym->save_width--;
